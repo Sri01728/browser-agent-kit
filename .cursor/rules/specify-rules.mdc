@@ -1,0 +1,29 @@
+# agentic-web-demo Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2026-01-01
+
+## Active Technologies
+
+- TypeScript 5.x with strict mode enabled + Zod (validation), React 18+ (for react package), DOMPurify (XSS prevention) (001-ui-protocol-layer)
+
+## Project Structure
+
+```text
+src/
+tests/
+```
+
+## Commands
+
+npm test && npm run lint
+
+## Code Style
+
+TypeScript 5.x with strict mode enabled: Follow standard conventions
+
+## Recent Changes
+
+- 001-ui-protocol-layer: Added TypeScript 5.x with strict mode enabled + Zod (validation), React 18+ (for react package), DOMPurify (XSS prevention)
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->

@@ -39,10 +39,15 @@ export class AgentOrchestrator {
       
       // No tool calls? We're done
       if (!result.toolCalls || result.toolCalls.length === 0) {
+        // Map LLM finish reason to Agent finish reason
+        const finishReason: AgentResult['finishReason'] = 
+          result.finishReason === 'stop' ? 'stop' :
+          result.finishReason === 'length' ? 'length' : 'stop';
+        
         return {
           text: result.text,
           steps: step + 1,
-          finishReason: result.finishReason,
+          finishReason,
           usage: totalUsage,
           toolCalls: toolCallHistory.length > 0 ? toolCallHistory : undefined,
         };

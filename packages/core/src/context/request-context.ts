@@ -33,7 +33,7 @@ export class RequestContext {
    * Delete a key
    */
   delete(key: string): boolean {
-    return this.data.delete();
+    return this.data.delete(key);
   }
   
   /**

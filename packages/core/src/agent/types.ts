@@ -35,7 +35,7 @@ export interface AgentConfig {
 /**
  * Agent generation options
  */
-export interface GenerateOptions {
+export interface AgentGenerateOptions {
   /** Memory context for conversation */
   memory?: MemoryContext;
   
@@ -46,6 +46,27 @@ export interface GenerateOptions {
   
   /** Additional context */
   context?: Record<string, unknown>;
+}
+
+/**
+ * A2U Component structure for UI rendering.
+ * This is a simplified version - full definition in @web-agent/ui-protocol.
+ */
+export interface A2UComponent {
+  /** Component type identifier */
+  type: string;
+  /** Unique identifier for the component */
+  id?: string;
+  /** Component-specific properties */
+  props?: Record<string, unknown>;
+  /** Nested child components */
+  children?: A2UComponent[];
+  /** Available user interactions */
+  actions?: Array<{
+    type: 'navigate' | 'submit' | 'update' | 'call_tool';
+    target?: string;
+    params?: Record<string, unknown>;
+  }>;
 }
 
 /**
@@ -74,6 +95,9 @@ export interface AgentResult {
     input: unknown;
     output: unknown;
   }>;
+  
+  /** Parsed A2U UI component (if detected in response) */
+  ui?: A2UComponent;
 }
 
 /**
@@ -106,9 +130,9 @@ export interface Agent {
   memory?: MemoryStore;
   
   /** Generate a response */
-  generate(prompt: string | Message[], options?: GenerateOptions): Promise<AgentResult>;
+  generate(prompt: string | Message[], options?: AgentGenerateOptions): Promise<AgentResult>;
   
   /** Stream a response */
-  stream(prompt: string | Message[], options?: GenerateOptions): AsyncGenerator<AgentStreamChunk>;
+  stream(prompt: string | Message[], options?: AgentGenerateOptions): AsyncGenerator<AgentStreamChunk>;
 }
 

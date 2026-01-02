@@ -3,7 +3,7 @@ import type { MemoryStore } from '../memory/types';
 import type {
   Agent as IAgent,
   AgentConfig,
-  GenerateOptions,
+  AgentGenerateOptions,
   AgentResult,
   AgentStreamChunk,
 } from './types';
@@ -18,7 +18,7 @@ export class Agent implements IAgent {
   name: string;
   instructions: string;
   model: AgentConfig['model'];
-  tools: AgentConfig['tools'];
+  tools: Record<string, any>;
   memory?: MemoryStore;
   
   private orchestrator: AgentOrchestrator;
@@ -51,7 +51,7 @@ export class Agent implements IAgent {
    */
   async generate(
     prompt: string | Message[],
-    options?: GenerateOptions
+    options?: AgentGenerateOptions
   ): Promise<AgentResult> {
     // Ensure model is initialized
     if (!this.model.isReady()) {
@@ -90,7 +90,7 @@ export class Agent implements IAgent {
    */
   async *stream(
     prompt: string | Message[],
-    options?: GenerateOptions
+    options?: AgentGenerateOptions
   ): AsyncGenerator<AgentStreamChunk> {
     // Ensure model is initialized
     if (!this.model.isReady()) {
@@ -125,7 +125,7 @@ export class Agent implements IAgent {
    */
   private async buildMessages(
     prompt: string | Message[],
-    options?: GenerateOptions
+    options?: AgentGenerateOptions
   ): Promise<Message[]> {
     const messages: Message[] = [
       { role: 'system', content: this.instructions },
@@ -153,7 +153,7 @@ export class Agent implements IAgent {
   private async saveToMemory(
     messages: Message[],
     result: AgentResult,
-    context: GenerateOptions['memory']
+    context: AgentGenerateOptions['memory']
   ): Promise<void> {
     if (!this.memory || !context) return;
     

@@ -1,0 +1,55 @@
+{
+  "name": "@web-agent/ui-protocol",
+  "version": "0.1.0",
+  "description": "A2U Protocol Renderer and AG-UI Event Bus for browser-based AI agents",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./a2u": {
+      "types": "./dist/a2u/index.d.ts",
+      "import": "./dist/a2u/index.js"
+    },
+    "./ag-ui": {
+      "types": "./dist/ag-ui/index.d.ts",
+      "import": "./dist/ag-ui/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest",
+    "lint": "eslint src",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "zod": "^3.22.4",
+    "dompurify": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/dompurify": "^3.0.0",
+    "typescript": "^5.3.0",
+    "tsup": "^8.0.0",
+    "vitest": "^1.0.0",
+    "jsdom": "^24.0.0"
+  },
+  "peerDependencies": {
+    "@web-agent/core": "workspace:^0.1.0"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "ui",
+    "a2u",
+    "ag-ui",
+    "web-agent",
+    "browser"
+  ],
+  "license": "MIT"
+}
+

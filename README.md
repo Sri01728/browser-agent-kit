@@ -233,7 +233,11 @@ All documentation is in the [`docs/`](./docs/) folder:
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our contributing guidelines before submitting PRs.
+Contributions are welcome! 
+
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Development workflow
+- **[Code Principles](./.github/PRINCIPLES.md)** - Quality standards
+- **[Prompt Templates](./.github/PROMPT_TEMPLATE.md)** - AI code generation prompts
 
 ## 📄 License
 
