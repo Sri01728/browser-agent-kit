@@ -316,8 +316,30 @@ export function SmartAgentProvider({
       if (Object.keys(registeredData).length > 0) {
         const parts: string[] = [];
         for (const [key, value] of Object.entries(registeredData)) {
+          // Skip empty strings and null/undefined values
+          if (value === null || value === undefined || value === '') {
+            continue;
+          }
+          
           if (typeof value === 'string') {
-            parts.push(`${key}: ${value}`);
+            // Make API data more explicit - tell Gemma it's real-time data
+            if (key === 'api_data') {
+              // Check what type of data it is
+              const lowerValue = value.toLowerCase();
+              if (lowerValue.includes('cryptocurrency') || lowerValue.includes('bitcoin') || lowerValue.includes('btc') || lowerValue.includes('ethereum')) {
+                parts.push(`Real-time Cryptocurrency Prices (from API): ${value}`);
+              } else if (lowerValue.includes('weather') || lowerValue.includes('temperature') || lowerValue.includes('°c') || lowerValue.includes('°f')) {
+                parts.push(`Current Weather Data (from API): ${value}`);
+              } else if (lowerValue.includes('news headline') || lowerValue.includes('news') && (lowerValue.includes('headline') || lowerValue.includes('from'))) {
+                parts.push(`Latest News Headlines (from API): ${value}`);
+              } else {
+                parts.push(`Real-time API Data: ${value}`);
+              }
+            } else if (key === 'products') {
+              parts.push(`Product List: ${value}`);
+            } else {
+              parts.push(`${key}: ${value}`);
+            }
           } else {
             try {
               parts.push(`${key}: ${JSON.stringify(value)}`);
@@ -326,14 +348,21 @@ export function SmartAgentProvider({
             }
           }
         }
-        contextPrompt = `Data: ${parts.join('\n')}\n`;
+        
+        // Only add context if we have actual data
+        if (parts.length > 0) {
+          // Simple and direct instruction - be very explicit
+          contextPrompt = `Data available:\n${parts.join('\n')}\n\nAnswer questions using the data above. If asked about weather, use weather data. If asked about products, use product data. If asked about news or a person, find and share relevant news from the data above.\n\n`;
+        }
       }
       
       // DEBUG: Log the context being sent
       console.log('📨 contextPrompt:', contextPrompt);
 
       // No chat history - each message is independent (saves tokens)
-      const fullPrompt = `${persona}\n${contextPrompt}<start_of_turn>user\n${message}<end_of_turn>\n<start_of_turn>model\n`;
+      // Put context BEFORE persona so Gemma sees it first
+      // Make prompt more direct and clear for Gemma
+      const fullPrompt = `${contextPrompt}${persona}\n\n<start_of_turn>user\n${message}<end_of_turn>\n<start_of_turn>model\n`;
       
       // DEBUG: Log full prompt
       console.log('📝 fullPrompt:', fullPrompt);
@@ -344,9 +373,25 @@ export function SmartAgentProvider({
         // Generate response
         const result = await llmRef.current.generateResponse(fullPrompt);
         response = typeof result === 'string' ? result : result?.text || '';
+        
+        // DEBUG: Log raw response
+        console.log('📤 Raw LLM response:', response);
 
         // Clean up response
         response = response.replace(/<end_of_turn>/g, '').trim();
+        
+        // DEBUG: Log cleaned response
+        console.log('📥 Cleaned response:', response);
+        
+        // Handle empty or very short responses
+        if (!response || response.length < 2) {
+          console.warn('⚠️ LLM returned empty or very short response, retrying with simpler prompt...');
+          // Retry with simpler prompt
+          const simplePrompt = `${persona}\n<start_of_turn>user\n${message}<end_of_turn>\n<start_of_turn>model\n`;
+          const retryResult = await llmRef.current.generateResponse(simplePrompt);
+          response = typeof retryResult === 'string' ? retryResult : retryResult?.text || '';
+          response = response.replace(/<end_of_turn>/g, '').trim();
+        }
 
         // Check for tool calls
         const toolMatch = response.match(/```tool\s*\n?({[\s\S]*?})\n?```/);
