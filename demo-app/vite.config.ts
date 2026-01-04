@@ -8,6 +8,16 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ['@mediapipe/tasks-genai'],
+    include: ['react', 'react-dom', '@web-agent/core'],
+  },
+  resolve: {
+    dedupe: ['react', 'react-dom'],
+  },
+  build: {
+    commonjsOptions: {
+      include: [/node_modules/],
+    },
   },
 });
+
 
