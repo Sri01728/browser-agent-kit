@@ -107,7 +107,16 @@ export type { WebAgentUIProps } from './components/WebAgentUI';
 // =============================================================================
 
 // Factory: createWebAgent - Create agent instances programmatically
-export { createWebAgent } from './create-web-agent';
+export { 
+  createWebAgent, 
+  TRANSFORMERS_MODELS, 
+  TRANSLATION_MODELS,
+  TEXT_CLASSIFICATION_MODELS,
+  IMAGE_CLASSIFICATION_MODELS,
+  OBJECT_DETECTION_MODELS,
+  NER_MODELS,
+  SUMMARIZATION_MODELS,
+} from './create-web-agent';
 export type {
   WebAgentOptions,
   WebAgentInstance,

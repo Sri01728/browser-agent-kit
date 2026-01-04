@@ -100,16 +100,62 @@ function checkWebGPUSupport(): boolean {
   return typeof navigator !== 'undefined' && 'gpu' in navigator;
 }
 
+// Internal error/loading UI components
+function ErrorFallback({ error }: { error: Error }) {
+  return (
+    <div style={{
+      padding: '2rem',
+      textAlign: 'center',
+      color: '#ef4444',
+      background: '#fef2f2',
+      borderRadius: '8px',
+      margin: '1rem',
+    }}>
+      <h2 style={{ marginTop: 0 }}>⚠️ AI Agent Unavailable</h2>
+      <p>{error.message}</p>
+      <p style={{ fontSize: '0.875rem', color: '#6b7280', marginTop: '1rem' }}>
+        Please use Chrome 113+ or Edge 113+ with WebGPU support.
+      </p>
+    </div>
+  );
+}
+
+function LoadingFallback({ progress }: { progress: number }) {
+  return (
+    <div style={{
+      padding: '2rem',
+      textAlign: 'center',
+      color: '#6b7280',
+    }}>
+      <div style={{
+        width: '40px',
+        height: '40px',
+        border: '4px solid #e5e7eb',
+        borderTopColor: '#3b82f6',
+        borderRadius: '50%',
+        animation: 'spin 1s linear infinite',
+        margin: '0 auto 1rem',
+      }} />
+      <p>Loading AI model... {progress}%</p>
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
+}
+
 // Provider Component
 export function SmartAgentProvider({
   children,
   persona = 'You are a helpful assistant. Answer questions about the current page content.',
   modelPath = MODEL_PATHS.local,
   autoLoad = true,
-  includeDOM = true,
-  includeForms = true,
-  includeTables = true,
-  maxContextLength = 4000,
+  includeDOM = false, // Default to false for minimal token usage
+  includeForms = false,
+  includeTables = false,
+  maxContextLength = 500, // Optimized default for Gemma 2B
   onReady,
   onError,
   onModelLoadProgress,
@@ -121,6 +167,7 @@ export function SmartAgentProvider({
   const [error, setError] = useState<Error | null>(null);
   const [modelLoadProgress, setModelLoadProgress] = useState(0);
   const [domSnapshot, setDomSnapshot] = useState('');
+  const [webGPUSupported, setWebGPUSupported] = useState<boolean | null>(null);
 
   // Refs
   const dataRegistry = useRef<Map<string, any>>(new Map());
@@ -223,20 +270,24 @@ export function SmartAgentProvider({
     return () => observer.disconnect();
   }, [extractDOMContent, includeDOM]);
 
+  // Check WebGPU support on mount
+  useEffect(() => {
+    const supported = checkWebGPUSupport();
+    setWebGPUSupported(supported);
+    
+    if (!supported && autoLoad) {
+      const err = new Error('WebGPU not supported. Please use Chrome 113+ or Edge 113+.');
+      setError(err);
+      setStatus('error');
+      onError?.(err);
+    }
+  }, [autoLoad, onError]);
+
   // Initialize LLM
   useEffect(() => {
-    if (!autoLoad) return;
+    if (!autoLoad || webGPUSupported === false || webGPUSupported === null) return;
 
     const initLLM = async () => {
-      // Check WebGPU
-      if (!checkWebGPUSupport()) {
-        const err = new Error('WebGPU not supported. Please use Chrome 113+ or Edge 113+.');
-        setError(err);
-        setStatus('error');
-        onError?.(err);
-        return;
-      }
-
       setStatus('loading-model');
       setModelLoadProgress(0);
 
@@ -259,8 +310,8 @@ export function SmartAgentProvider({
             modelAssetPath: modelPath,
           },
           maxTokens: 1024,
-          topK: 40,
-          temperature: 0.8,
+          topK: 30,        // Reduced from 40 for faster inference
+          temperature: 0.6, // Reduced from 0.8 for better token efficiency
           randomSeed: 42,
         });
 
@@ -284,7 +335,45 @@ export function SmartAgentProvider({
         llmRef.current.close?.();
       }
     };
-  }, [autoLoad, modelPath, onReady, onError, onModelLoadProgress]);
+  }, [autoLoad, modelPath, onReady, onError, onModelLoadProgress, webGPUSupported]);
+
+  // Format LLM response for better readability
+  const formatLLMResponse = (text: string): string => {
+    if (!text) return text;
+
+    let formatted = text;
+
+    // Clean up common LLM artifacts
+    formatted = formatted.replace(/<end_of_turn>/g, '');
+    formatted = formatted.replace(/<start_of_turn>/g, '');
+    
+    // Ensure numbered lists have proper line breaks
+    // Pattern: "1. Item" should be on its own line
+    formatted = formatted.replace(/(\d+)\.\s+([^\n\d]+?)(?=\s*\d+\.|$)/g, (match, num, content) => {
+      return `\n${num}. ${content.trim()}`;
+    });
+    
+    // Format bullet points
+    formatted = formatted.replace(/-\s+([^\n-]+)/g, '\n• $1');
+    
+    // Add line break before lists
+    formatted = formatted.replace(/([.!?])\s*(\d+\.|-|•)/g, '$1\n$2');
+    
+    // Format currency values consistently
+    formatted = formatted.replace(/\$\s*(\d+[\d,]*\.?\d*)/g, '$$$1');
+    
+    // Ensure proper spacing after colons in lists
+    formatted = formatted.replace(/:\s*([A-Z])/g, ': $1');
+    
+    // Clean up excessive whitespace but preserve intentional line breaks
+    formatted = formatted.replace(/[ \t]+/g, ' ');
+    formatted = formatted.replace(/\n{3,}/g, '\n\n');
+    
+    // Remove leading/trailing whitespace from each line
+    formatted = formatted.split('\n').map(line => line.trim()).join('\n');
+    
+    return formatted.trim();
+  };
 
   // Send message
   const send = useCallback(
@@ -352,7 +441,8 @@ export function SmartAgentProvider({
         // Only add context if we have actual data
         if (parts.length > 0) {
           // Simple and direct instruction - be very explicit
-          contextPrompt = `Data available:\n${parts.join('\n')}\n\nAnswer questions using the data above. If asked about weather, use weather data. If asked about products, use product data. If asked about news or a person, find and share relevant news from the data above.\n\n`;
+          // Optimized: Minimal instruction, let data speak for itself
+          contextPrompt = `Data:\n${parts.join('\n')}\n\n`;
         }
       }
       
@@ -360,9 +450,8 @@ export function SmartAgentProvider({
       console.log('📨 contextPrompt:', contextPrompt);
 
       // No chat history - each message is independent (saves tokens)
-      // Put context BEFORE persona so Gemma sees it first
-      // Make prompt more direct and clear for Gemma
-      const fullPrompt = `${contextPrompt}${persona}\n\n<start_of_turn>user\n${message}<end_of_turn>\n<start_of_turn>model\n`;
+      // Optimized prompt structure: Data → Persona → User message
+      const fullPrompt = `${contextPrompt}${persona}\n<start_of_turn>user\n${message}<end_of_turn>\n<start_of_turn>model\n`;
       
       // DEBUG: Log full prompt
       console.log('📝 fullPrompt:', fullPrompt);
@@ -379,6 +468,9 @@ export function SmartAgentProvider({
 
         // Clean up response
         response = response.replace(/<end_of_turn>/g, '').trim();
+        
+        // Format response for better readability
+        response = formatLLMResponse(response);
         
         // DEBUG: Log cleaned response
         console.log('📥 Cleaned response:', response);
@@ -452,6 +544,30 @@ export function SmartAgentProvider({
     }),
     [status, messages, error, send, reset, registerData, unregisterData, getData, modelLoadProgress]
   );
+
+  // Show error UI if WebGPU not supported or model failed
+  if (error && status === 'error') {
+    return (
+      <SmartAgentContext.Provider value={contextValue}>
+        <div ref={containerRef} data-smart-agent-container="">
+          <ErrorFallback error={error} />
+          {children}
+        </div>
+      </SmartAgentContext.Provider>
+    );
+  }
+
+  // Show loading UI while checking WebGPU or loading model
+  if (webGPUSupported === null || status === 'loading-model') {
+    return (
+      <SmartAgentContext.Provider value={contextValue}>
+        <div ref={containerRef} data-smart-agent-container="">
+          {status === 'loading-model' && <LoadingFallback progress={modelLoadProgress} />}
+          {children}
+        </div>
+      </SmartAgentContext.Provider>
+    );
+  }
 
   return (
     <SmartAgentContext.Provider value={contextValue}>
