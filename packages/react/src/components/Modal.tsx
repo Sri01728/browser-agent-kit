@@ -150,10 +150,15 @@ export const Modal: React.FC<ModalProps> = ({
       actions: a2uActions,
     };
 
-    // Render the modal
-    const modalElement = rendererRef.current.renderComponent(
-      component,
-      (action, componentId) => {
+    // Render the modal using the A2U protocol
+    const a2uResponse = {
+      type: 'ui' as const,
+      version: '1.0',
+      ui: component,
+    };
+
+    rendererRef.current.render(a2uResponse, containerRef.current, {
+      onAction: (action: any, componentId?: string) => {
         if (action.type === 'modal_close') {
           onClose?.();
         } else if (action.type === 'call_tool' && actions) {
@@ -162,12 +167,8 @@ export const Modal: React.FC<ModalProps> = ({
             actions[actionIndex].onClick();
           }
         }
-      }
-    );
-
-    // Clear container and append modal
-    containerRef.current.innerHTML = '';
-    containerRef.current.appendChild(modalElement);
+      },
+    });
 
     // Cleanup
     return () => {

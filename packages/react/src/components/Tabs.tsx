@@ -133,19 +133,20 @@ export const Tabs: React.FC<TabsProps> = ({
       children: childComponents,
     };
 
-    // Render the tabs
-    const tabsElement = rendererRef.current.renderComponent(
-      component,
-      (action, componentId) => {
+    // Render the tabs using the A2U protocol
+    const a2uResponse = {
+      type: 'ui' as const,
+      version: '1.0',
+      ui: component,
+    };
+
+    rendererRef.current.render(a2uResponse, containerRef.current, {
+      onAction: (action: any, componentId?: string) => {
         if (action.type === 'tab_change' && action.params?.tabId) {
           onTabChange?.(action.params.tabId as string);
         }
-      }
-    );
-
-    // Clear container and append tabs
-    containerRef.current.innerHTML = '';
-    containerRef.current.appendChild(tabsElement);
+      },
+    });
 
     // Cleanup
     return () => {

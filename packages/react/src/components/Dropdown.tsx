@@ -127,21 +127,22 @@ export const Dropdown: React.FC<DropdownProps> = ({
       },
     };
 
-    // Render the dropdown
-    const dropdownElement = rendererRef.current.renderComponent(
-      component,
-      (action, componentId) => {
+    // Render the dropdown using the A2U protocol
+    const a2uResponse = {
+      type: 'ui' as const,
+      version: '1.0',
+      ui: component,
+    };
+
+    rendererRef.current.render(a2uResponse, containerRef.current, {
+      onAction: (action: any, componentId?: string) => {
         if (action.type === 'dropdown_select' && action.params) {
           const selectedValue = action.params.value as string;
           const selectedLabel = action.params.label as string;
           onChange?.(selectedValue, selectedLabel);
         }
-      }
-    );
-
-    // Clear container and append dropdown
-    containerRef.current.innerHTML = '';
-    containerRef.current.appendChild(dropdownElement);
+      },
+    });
 
     // Cleanup
     return () => {
