@@ -43,6 +43,20 @@ User speaks/types → AI Agent → Agent controls UI directly
 
 All without you writing UI update logic!
 
+### 📦 Bundler Support
+
+**For Browser-Based ML (Transformers.js)**:
+- ✅ **Webpack 5** (Recommended) - See `examples/spotify-demo-webpack`
+  - Native WASM support via `experiments.asyncWebAssembly`
+  - Mature Web Worker handling
+  - Proven track record with ML libraries
+  
+**For Standard Web Apps**:
+- ✅ **Vite** - See `examples/demo-app`
+  - Faster dev server
+  - Simpler configuration
+  - Perfect for non-ML demos
+
 ## 🏗️ Project Status
 
 **Phase 1: Core Foundation** ✅ (Complete)
