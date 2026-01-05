@@ -3,6 +3,16 @@ import type { Tool } from '../tool/types';
 import type { MemoryStore, MemoryContext } from '../memory/types';
 
 /**
+ * Event bus interface for agent-UI communication.
+ * Full implementation in @web-agent/ui-protocol.
+ */
+export interface EventBus {
+  emit(event: { type: string; timestamp: number; payload: Record<string, unknown> }): void;
+  on(type: string, handler: (event: any) => void): () => void;
+  dispose(): void;
+}
+
+/**
  * Agent configuration
  */
 export interface AgentConfig {
@@ -23,6 +33,9 @@ export interface AgentConfig {
   
   /** Memory store for conversation history */
   memory?: MemoryStore | boolean; // true = auto-configure IndexedDB
+  
+  /** Event bus for agent-UI communication (optional) */
+  eventBus?: EventBus;
   
   /** Default generation options */
   defaultOptions?: {
@@ -128,6 +141,7 @@ export interface Agent {
   model: LLMAdapter;
   tools: Record<string, Tool>;
   memory?: MemoryStore;
+  eventBus?: EventBus;
   
   /** Generate a response */
   generate(prompt: string | Message[], options?: AgentGenerateOptions): Promise<AgentResult>;

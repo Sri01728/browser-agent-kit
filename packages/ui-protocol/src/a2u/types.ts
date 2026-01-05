@@ -174,6 +174,8 @@ export type CardProps = z.infer<typeof cardPropsSchema>;
 export const listPropsSchema = z.object({
   ordered: z.boolean().optional(),
   separator: z.boolean().optional(),
+  className: z.string().optional(),
+  style: z.record(z.string()).optional(),
 });
 
 export type ListProps = z.infer<typeof listPropsSchema>;
@@ -181,8 +183,13 @@ export type ListProps = z.infer<typeof listPropsSchema>;
 /** Button component props */
 export const buttonPropsSchema = z.object({
   label: z.string(),
-  variant: z.enum(['primary', 'secondary', 'danger']).optional(),
+  variant: z.enum(['primary', 'secondary', 'danger', 'success']).optional(),
   disabled: z.boolean().optional(),
+  className: z.string().optional(),
+  style: z.record(z.string()).optional(),
+  buttonType: z.enum(['button', 'submit', 'reset']).optional(),
+  icon: z.string().optional(),
+  ariaLabel: z.string().optional(),
 });
 
 export type ButtonProps = z.infer<typeof buttonPropsSchema>;

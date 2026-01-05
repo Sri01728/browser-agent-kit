@@ -20,6 +20,7 @@ export class Agent implements IAgent {
   model: AgentConfig['model'];
   tools: Record<string, any>;
   memory?: MemoryStore;
+  eventBus?: AgentConfig['eventBus'];
   
   private orchestrator: AgentOrchestrator;
   private defaultOptions: AgentConfig['defaultOptions'];
@@ -31,6 +32,7 @@ export class Agent implements IAgent {
     this.model = config.model;
     this.tools = config.tools || {};
     this.defaultOptions = config.defaultOptions;
+    this.eventBus = config.eventBus;
     
     // Initialize memory
     if (config.memory === true) {
@@ -53,36 +55,100 @@ export class Agent implements IAgent {
     prompt: string | Message[],
     options?: AgentGenerateOptions
   ): Promise<AgentResult> {
-    // Ensure model is initialized
-    if (!this.model.isReady()) {
-      await this.model.initialize();
-    }
+    const requestId = `req-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
-    // Build messages
-    const messages = await this.buildMessages(prompt, options);
+    // Emit generation:start event
+    this.eventBus?.emit({
+      type: 'generation:start',
+      timestamp: Date.now(),
+      payload: {
+        requestId,
+        agentId: this.id,
+        prompt: typeof prompt === 'string' ? prompt : prompt.map(m => m.content).join('\n'),
+      },
+    });
     
-    // Generate with tool calling
-    const result = await this.orchestrator.execute(
-      messages,
-      this.tools,
-      async (msgs) => {
-        const toolDefs = Object.values(this.tools).map((tool) => tool.toJSONSchema());
-        
-        return this.model.generate({
-          messages: msgs,
-          tools: toolDefs.length > 0 ? toolDefs : undefined,
-          maxTokens: options?.maxTokens || this.defaultOptions?.maxTokens,
-          temperature: options?.temperature || this.defaultOptions?.temperature,
-        });
+    try {
+      // Ensure model is initialized
+      if (!this.model.isReady()) {
+        await this.model.initialize();
       }
-    );
-    
-    // Save to memory
-    if (this.memory && options?.memory) {
-      await this.saveToMemory(messages, result, options.memory);
+      
+      // Build messages
+      const messages = await this.buildMessages(prompt, options);
+      
+      // Generate with tool calling
+      const result = await this.orchestrator.execute(
+        messages,
+        this.tools,
+        async (msgs) => {
+          const toolDefs = Object.values(this.tools).map((tool) => tool.toJSONSchema());
+          
+          return this.model.generate({
+            messages: msgs,
+            tools: toolDefs.length > 0 ? toolDefs : undefined,
+            maxTokens: options?.maxTokens || this.defaultOptions?.maxTokens,
+            temperature: options?.temperature || this.defaultOptions?.temperature,
+          });
+        },
+        // Tool call callback for event emission
+        (toolName, args, result) => {
+          this.eventBus?.emit({
+            type: 'tool:call',
+            timestamp: Date.now(),
+            payload: {
+              requestId,
+              tool: toolName,
+              args,
+            },
+          });
+          
+          this.eventBus?.emit({
+            type: 'tool:result',
+            timestamp: Date.now(),
+            payload: {
+              requestId,
+              tool: toolName,
+              result,
+            },
+          });
+        }
+      );
+      
+      // Save to memory
+      if (this.memory && options?.memory) {
+        await this.saveToMemory(messages, result, options.memory);
+      }
+      
+      // Emit generation:end event
+      this.eventBus?.emit({
+        type: 'generation:end',
+        timestamp: Date.now(),
+        payload: {
+          requestId,
+          agentId: this.id,
+          text: result.text,
+          steps: result.steps,
+          finishReason: result.finishReason,
+        },
+      });
+      
+      return result;
+    } catch (error) {
+      // Emit error event
+      this.eventBus?.emit({
+        type: 'error',
+        timestamp: Date.now(),
+        payload: {
+          requestId,
+          agentId: this.id,
+          message: error instanceof Error ? error.message : 'Unknown error',
+          code: 'ERR_GENERATION',
+        },
+      });
+      
+      throw error;
     }
-    
-    return result;
   }
   
   /**

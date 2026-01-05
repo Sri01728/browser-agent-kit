@@ -145,6 +145,16 @@ export class A2URenderer {
   }
 
   /**
+   * Checks if a component type is registered.
+   *
+   * @param type - Component type
+   * @returns true if registered, false otherwise
+   */
+  hasComponent(type: string): boolean {
+    return this.componentRegistry.has(type);
+  }
+
+  /**
    * Gets a registered component renderer.
    *
    * @param type - Component type

@@ -58,6 +58,16 @@ export function renderList(component: A2UComponent, context: RenderContext): HTM
     list.classList.add(CSS_CLASSES.listSeparator);
   }
 
+  // Apply custom className
+  if (props.className) {
+    list.classList.add(props.className);
+  }
+
+  // Apply custom styles
+  if (props.style) {
+    Object.assign(list.style, props.style);
+  }
+
   // Render children as list items
   if (component.children) {
     for (const child of component.children) {

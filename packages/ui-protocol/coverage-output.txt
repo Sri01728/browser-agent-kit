@@ -1,0 +1,1381 @@
+
+ RUN  v4.0.16 /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol
+      Coverage enabled with v8
+
+ ✓ src/a2u/components/__tests__/card.test.ts (6 tests) 17ms
+ ❯ src/ag-ui/__tests__/types.test.ts (11 tests | 9 failed) 6ms
+       × should validate generation:start event 2ms
+       × should validate generation:end event 0ms
+       × should validate tool:call event 0ms
+       × should validate tool:result event 0ms
+       × should validate ui:action event 1ms
+       × should validate error event 0ms
+       × should reject invalid event type 0ms
+       × should reject event without timestamp 0ms
+       × should reject event without payload 0ms
+       ✓ should enforce correct event type 0ms
+       ✓ should allow any payload structure 0ms
+stderr | src/a2u/__tests__/parser.test.ts > parseA2UResponse > should throw A2UParseError for invalid JSON
+[A2UParser] JSON parse error SyntaxError: Expected property name or '}' in JSON at position 2 (line 1 column 3)
+    at JSON.parse (<anonymous>)
+    at parseA2UResponse (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/parser.ts:54:19)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/parser.test.ts:42:18
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1504:5)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1090:14)
+    at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/parser.test.ts:42:56
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1243:20
+
+stderr | src/a2u/__tests__/parser.test.ts > parseA2UResponse > should throw A2UValidationError for invalid schema
+[A2UParser] Schema validation failed {
+  issues: [
+    {
+      path: [Array],
+      message: "Invalid enum value. Expected 'ui' | 'text', received 'invalid'"
+    }
+  ]
+}
+
+stderr | src/a2u/__tests__/parser.test.ts > parseA2UResponse > should throw A2UValidationError for missing ui field when type=ui
+[A2UParser] Schema validation failed {
+  issues: [
+    {
+      path: [],
+      message: 'ui field required when type="ui", text field required when type="text"'
+    }
+  ]
+}
+
+stderr | src/a2u/__tests__/parser.test.ts > parseA2UResponse > should throw A2UValidationError for invalid version format
+[A2UParser] Schema validation failed {
+  issues: [ { path: [Array], message: 'Version must be in format X.Y' } ]
+}
+
+stdout | src/ag-ui/__tests__/event-bus.test.ts > AGUIEventBus > constructor > should accept custom config
+[AGUIEventBus] AGUIEventBus initialized {
+  config: { logLevel: 'debug', logEvents: true, catchHandlerErrors: false }
+}
+
+stderr | src/a2u/__tests__/parser.test.ts > safeParseA2UResponse > should return null for invalid JSON
+[A2UParser] JSON parse error SyntaxError: Unexpected token 'i', "invalid" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at parseA2UResponse (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/parser.ts:54:19)
+    at safeParseA2UResponse (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/parser.ts:96:12)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/parser.test.ts:101:12
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1653:37
+
+stderr | src/ag-ui/__tests__/event-bus.test.ts > AGUIEventBus > emit > should catch handler errors by default
+[AGUIEventBus] Handler error EventBusError: Handler for "generation:start" threw an error: Handler error
+    at AGUIEventBus.emit (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/event-bus.ts:214:41)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/__tests__/event-bus.test.ts:133:13
+    ... 5 lines matching cause stack trace ...
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1090:14)
+    at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/__tests__/event-bus.test.ts:134:13
+Caused by: Error: Handler error
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/__tests__/event-bus.test.ts:125:15
+    at Mock (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+spy@4.0.16/node_modules/@vitest/spy/dist/index.js:285:34)
+    at AGUIEventBus.emit (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/event-bus.ts:200:25)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/__tests__/event-bus.test.ts:133:13
+    at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+    at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1149:12)
+    at Proxy.overwritingMethodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1750:33)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1485:16)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1090:14) {
+  cause: Error: Handler error
+      at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/__tests__/event-bus.test.ts:125:15
+      at Mock (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+spy@4.0.16/node_modules/@vitest/spy/dist/index.js:285:34)
+      at AGUIEventBus.emit (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/event-bus.ts:200:25)
+      at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/ag-ui/__tests__/event-bus.test.ts:133:13
+      at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+      at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+      at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1149:12)
+      at Proxy.overwritingMethodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1750:33)
+      at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1485:16)
+      at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1090:14),
+  name: 'EventHandlerError',
+  eventType: 'generation:start'
+}
+
+stdout | src/ag-ui/__tests__/event-bus.test.ts > createEventBus > should accept config
+[AGUIEventBus] AGUIEventBus initialized {
+  config: { logLevel: 'debug', logEvents: false, catchHandlerErrors: true }
+}
+
+ ✓ src/a2u/__tests__/parser.test.ts (17 tests) 14ms
+ ❯ src/ag-ui/__tests__/integration.test.ts (9 tests | 9 failed) 19ms
+       × should handle complete generation lifecycle 8ms
+       × should handle error during generation 0ms
+       × should notify all subscribers in order 2ms
+       × should handle subscriber errors gracefully 2ms
+       × should only notify subscribers for specific event types 1ms
+       × should handle unsubscribe during event emission 1ms
+       × should handle many events efficiently 3ms
+       × should handle many subscribers efficiently 1ms
+       × should not mutate event payload 0ms
+ ✓ src/ag-ui/__tests__/event-bus.test.ts (22 tests) 20ms
+ ❯ src/a2u/components/__tests__/button.test.ts (16 tests | 2 failed) 44ms
+     ✓ should render a basic button 7ms
+     ✓ should set data-component-id attribute 1ms
+     ✓ should apply custom className from props 1ms
+     ✓ should apply custom styles from props 11ms
+     ✓ should apply variant class when specified 0ms
+     ✓ should handle multiple variants 0ms
+     ✓ should disable button when disabled prop is true 1ms
+     × should call onAction when button is clicked 14ms
+     ✓ should not call onAction when button is disabled 1ms
+     × should handle multiple actions 5ms
+     ✓ should handle button with no actions 1ms
+     ✓ should handle empty actions array 0ms
+     ✓ should set button type attribute 0ms
+     ✓ should default to button type 0ms
+     ✓ should render icon with label when icon prop is provided 0ms
+     ✓ should handle aria-label for accessibility 0ms
+ ❯ src/ag-ui/__tests__/dispose.test.ts (8 tests | 7 failed) 26ms
+     × should clean up all subscriptions on dispose 3ms
+     × should allow resubscribing after dispose 0ms
+     × should handle multiple dispose calls safely 1ms
+     × should dispose subscriptions for all event types 0ms
+     × should not affect other event bus instances 0ms
+     × should clear subscription count after dispose 1ms
+     ✓ should handle dispose with no subscriptions 1ms
+     × should prevent memory leaks by cleaning up handlers 18ms
+ ✓ src/a2u/components/__tests__/list.test.ts (10 tests) 26ms
+stdout | src/a2u/__tests__/renderer.test.ts > A2URenderer > constructor > should create renderer with custom config
+[A2URenderer] A2URenderer initialized { maxDepth: 5, maxComponents: 50, registeredComponents: 6 }
+
+stderr | src/a2u/__tests__/registry.test.ts > Component Registry > should throw error for unregistered component type
+[A2URenderer] Unknown component type { type: 'unknownType' }
+
+stderr | src/a2u/__tests__/renderer.test.ts > A2URenderer > render > should render placeholder for unknown component
+[A2URenderer] Unknown component type { type: 'unknown-widget' }
+
+stderr | src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Complex Nested Components > should handle nesting limit enforcement
+[A2URenderer] Depth limit reached { depth: 10, maxDepth: 10 }
+[A2URenderer] Render failed, showing fallback A2UError: Failed to render component "card" (id: card-15): Failed to render component "card" (id: card-14): Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    ... 4 lines matching cause stack trace ...
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/vitest@4.0.16_@types+node@20.19.27/node_modules/vitest/dist/chunks/traces.U4xDYhzZ.js:115:27)
+Caused by: A2UError: Failed to render component "card" (id: card-14): Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:94:16
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+Caused by: A2UError: Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 3 duplicate lines matching above lines ...
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:94:16
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+Caused by: A2UError: Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: DepthLimitError: Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times... {
+  cause: A2UError: Failed to render component "card" (id: card-14): Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      ... 2 lines matching cause stack trace ...
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+      at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:94:16
+      at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+      at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:915:26
+      at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1243:20
+      at new Promise (<anonymous>)
+  Caused by: A2UError: Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 3 duplicate lines matching above lines ...
+      at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+      at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:94:16
+      at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+  Caused by: A2UError: Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: DepthLimitError: Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times... {
+    cause: A2UError: Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        ... 5 lines matching cause stack trace ...
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+        at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:94:16
+        at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+    Caused by: A2UError: Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: DepthLimitError: Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times... {
+      cause: [ComponentRenderError],
+      name: 'ComponentRenderError',
+      component: [Object],
+      componentType: 'card'
+    },
+    name: 'ComponentRenderError',
+    component: { type: 'card', id: 'card-14', props: [Object], children: [Array] },
+    componentType: 'card'
+  },
+  name: 'ComponentRenderError',
+  component: {
+    type: 'card',
+    id: 'card-15',
+    props: { title: 'Level 15' },
+    children: [ [Object] ]
+  },
+  componentType: 'card'
+}
+
+stderr | src/a2u/__tests__/registry.test.ts > Component Registry > should allow unregistering a component
+[A2URenderer] Unknown component type { type: 'temporary' }
+
+stderr | src/a2u/__tests__/registry.test.ts > Component Registry > should handle component with props validation in custom renderer
+[A2URenderer] Render failed, showing fallback A2UError: Failed to render component "validated" (id: test-invalid): Required prop missing
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    ... 6 lines matching cause stack trace ...
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1090:14)
+    at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+Caused by: Error: Required prop missing
+    at Object.customRenderer [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/registry.test.ts:338:15)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/registry.test.ts:365:27
+    at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+    at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1149:12)
+    at Proxy.overwritingMethodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1750:33)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1485:16)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1090:14) {
+  cause: Error: Required prop missing
+      at Object.customRenderer [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/registry.test.ts:338:15)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+      at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/registry.test.ts:365:27
+      at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+      at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+      at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1149:12)
+      at Proxy.overwritingMethodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1750:33)
+      at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1485:16)
+      at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1090:14),
+  name: 'ComponentRenderError',
+  component: { type: 'validated', id: 'test-invalid', props: {} },
+  componentType: 'validated'
+}
+
+stderr | src/a2u/__tests__/renderer.test.ts > A2URenderer > limits > should respect maxDepth limit
+[A2URenderer] Depth limit reached { depth: 2, maxDepth: 2 }
+[A2URenderer] Render failed, showing fallback A2UError: Failed to render component "card": Failed to render component "list": Component nesting depth 2 exceeds maximum of 2
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    ... 4 lines matching cause stack trace ...
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/vitest@4.0.16_@types+node@20.19.27/node_modules/vitest/dist/chunks/traces.U4xDYhzZ.js:115:27)
+Caused by: A2UError: Failed to render component "list": Component nesting depth 2 exceeds maximum of 2
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/renderer.test.ts:213:23
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+Caused by: DepthLimitError: Component nesting depth 2 exceeds maximum of 2
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderList [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/list.ts:76:32)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/renderer.test.ts:213:23
+    at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11 {
+  cause: A2UError: Failed to render component "list": Component nesting depth 2 exceeds maximum of 2
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      ... 3 lines matching cause stack trace ...
+      at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11
+      at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:915:26
+      at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:1243:20
+      at new Promise (<anonymous>)
+  Caused by: DepthLimitError: Component nesting depth 2 exceeds maximum of 2
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderList [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/list.ts:76:32)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+      at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/renderer.test.ts:213:23
+      at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11 {
+    cause: DepthLimitError: Component nesting depth 2 exceeds maximum of 2
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderList [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/list.ts:76:32)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+        at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/renderer.test.ts:213:23
+        at file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+runner@4.0.16/node_modules/@vitest/runner/dist/index.js:145:11 {
+      cause: undefined,
+      depth: 2,
+      maxDepth: 2
+    },
+    name: 'ComponentRenderError',
+    component: { type: 'list', children: [Array] },
+    componentType: 'list'
+  },
+  name: 'ComponentRenderError',
+  component: { type: 'card', children: [ [Object] ] },
+  componentType: 'card'
+}
+
+stderr | src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Complex Nested Components > should allow configuring nesting limit
+[A2URenderer] Depth limit reached { depth: 10, maxDepth: 10 }
+[A2URenderer] Render failed, showing fallback A2UError: Failed to render component "card" (id: card-15): Failed to render component "card" (id: card-14): Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    ... 4 lines matching cause stack trace ...
+    at Proxy.overwritingMethodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1750:33)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1485:16)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1090:14)
+    at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+Caused by: A2UError: Failed to render component "card" (id: card-14): Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:125:24
+    at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+    at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+    at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1149:12)
+    at Proxy.overwritingMethodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1750:33)
+Caused by: A2UError: Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 3 duplicate lines matching above lines ...
+    at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+    at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:125:24
+    at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+Caused by: A2UError: Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: A2UError: Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+Caused by: DepthLimitError: Component nesting depth 10 exceeds maximum of 10
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+    at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+    at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+    at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+    ... collapsed 6 duplicate lines matching above 3 lines 2 times... {
+  cause: A2UError: Failed to render component "card" (id: card-14): Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      ... 2 lines matching cause stack trace ...
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+      at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:125:24
+      at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+      at Proxy.methodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1700:25)
+      at Proxy.<anonymous> (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/@vitest+expect@4.0.16/node_modules/@vitest/expect/dist/index.js:1149:12)
+      at Proxy.overwritingMethodWrapper (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:1750:33)
+  Caused by: A2UError: Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 3 duplicate lines matching above lines ...
+      at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+      at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:125:24
+      at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+  Caused by: A2UError: Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: A2UError: Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+  Caused by: DepthLimitError: Component nesting depth 10 exceeds maximum of 10
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+      at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+      at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+      at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+      ... collapsed 6 duplicate lines matching above 3 lines 2 times... {
+    cause: A2UError: Failed to render component "card" (id: card-13): Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        ... 5 lines matching cause stack trace ...
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        at A2URenderer.render (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:208:30)
+        at /Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/__tests__/integration.test.ts:125:24
+        at Proxy.assertThrows (file:///Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/node_modules/.pnpm/chai@6.2.2/node_modules/chai/index.js:2798:5)
+    Caused by: A2UError: Failed to render component "card" (id: card-12): Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-11): Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-10): Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-9): Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-8): Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-7): Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: A2UError: Failed to render component "card" (id: card-6): Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:279:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times...
+    Caused by: DepthLimitError: Component nesting depth 10 exceeds maximum of 10
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:238:13)
+        at Object.renderChild (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:266:14)
+        at Object.renderCard [as renderer] (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/components/card.ts:98:35)
+        at A2URenderer.renderComponent (/Users/salahari/Documents/GitHub/web-ai/agentic-web-demo/packages/ui-protocol/src/a2u/renderer.ts:277:20)
+        ... collapsed 6 duplicate lines matching above 3 lines 2 times... {
+      cause: [ComponentRenderError],
+      name: 'ComponentRenderError',
+      component: [Object],
+      componentType: 'card'
+    },
+    name: 'ComponentRenderError',
+    component: { type: 'card', id: 'card-14', props: [Object], children: [Array] },
+    componentType: 'card'
+  },
+  name: 'ComponentRenderError',
+  component: {
+    type: 'card',
+    id: 'card-15',
+    props: { title: 'Level 15' },
+    children: [ [Object] ]
+  },
+  componentType: 'card'
+}
+
+stderr | src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Full Parsing and Rendering Flow > should parse and render A2U JSON response
+[A2UParser] Schema validation failed { issues: [ { path: [Array], message: 'Required' } ] }
+
+stderr | src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Full Parsing and Rendering Flow > should handle action execution in full flow
+[A2UParser] Schema validation failed { issues: [ { path: [Array], message: 'Required' } ] }
+
+ ❯ src/a2u/__tests__/renderer.test.ts (15 tests | 1 failed) 22ms
+       ✓ should create renderer with default config 2ms
+       ✓ should create renderer with custom config 1ms
+       ✓ should register built-in components 0ms
+       ✓ should register custom component 1ms
+       ✓ should allow overriding built-in components 1ms
+       ✓ should render text response 4ms
+       ✓ should clear container before rendering (last-write-wins) 3ms
+       ✓ should render UI response with card 1ms
+       ✓ should render nested components 1ms
+       ✓ should call onAction when action is triggered 2ms
+       ✓ should render placeholder for unknown component 1ms
+       × should render fallback on error 3ms
+       ✓ should respect maxDepth limit 2ms
+       ✓ should return all registered component types 0ms
+       ✓ should update configuration 0ms
+ ❯ src/a2u/__tests__/registry.test.ts (13 tests | 4 failed) 22ms
+     ✓ should register a custom component 6ms
+     ✓ should use custom renderer for registered type 3ms
+     ✓ should override built-in component with custom renderer 1ms
+     ✓ should handle multiple custom component registrations 1ms
+     ✓ should pass context to custom renderer 0ms
+     ✓ should allow custom renderer to render nested components 1ms
+     ✓ should allow custom renderer to handle actions 1ms
+     × should throw error for unregistered component type 3ms
+     × should allow unregistering a component 1ms
+     × should check if component is registered 0ms
+     ✓ should list all registered component types 0ms
+     × should handle component with props validation in custom renderer 2ms
+     ✓ should handle custom renderer that returns complex elements 1ms
+stderr | src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Error Handling > should handle malformed component gracefully
+[A2URenderer] Unknown component type { type: 'unknownType' }
+
+stderr | src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Error Handling > should continue rendering after non-critical errors
+[A2URenderer] Unknown component type { type: 'unknownType' }
+
+ ❯ src/a2u/__tests__/integration.test.ts (12 tests | 5 failed) 50ms
+       ✓ should render deeply nested component tree 9ms
+       ✓ should handle nesting limit enforcement 6ms
+       ✓ should allow configuring nesting limit 4ms
+       × should parse and render A2U JSON response 2ms
+       × should handle action execution in full flow 1ms
+       × should enforce component count limit 10ms
+       ✓ should allow configuring component limit 9ms
+       ✓ should render all component types together 2ms
+       × should handle malformed component gracefully 1ms
+       × should continue rendering after non-critical errors 0ms
+       ✓ should render large component tree efficiently 4ms
+       ✓ should clear previous render when rendering again 1ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 37 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Full Parsing and Rendering Flow > should parse and render A2U JSON response
+A2UValidationError: A2U validation error: Schema validation failed
+ ❯ parseA2UResponse src/a2u/parser.ts:69:11
+     67|     }));
+     68|     logger.error('Schema validation failed', { issues });
+     69|     throw new A2UValidationError('Schema validation failed', issues);
+       |           ^
+     70|   }
+     71| 
+ ❯ src/a2u/__tests__/integration.test.ts:168:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/37]⎯
+
+ FAIL  src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Full Parsing and Rendering Flow > should handle action execution in full flow
+A2UValidationError: A2U validation error: Schema validation failed
+ ❯ parseA2UResponse src/a2u/parser.ts:69:11
+     67|     }));
+     68|     logger.error('Schema validation failed', { issues });
+     69|     throw new A2UValidationError('Schema validation failed', issues);
+       |           ^
+     70|   }
+     71| 
+ ❯ src/a2u/__tests__/integration.test.ts:209:22
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/37]⎯
+
+ FAIL  src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Component Limit Enforcement > should enforce component count limit
+AssertionError: expected null to be truthy
+
+- Expected: 
+true
+
++ Received: 
+null
+
+ ❯ src/a2u/__tests__/integration.test.ts:255:60
+    253|       
+    254|       // Check that fallback was rendered
+    255|       expect(container.querySelector('.a2u-render-error')).toBeTruthy(…
+       |                                                            ^
+    256|     });
+    257| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/37]⎯
+
+ FAIL  src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Error Handling > should handle malformed component gracefully
+AssertionError: expected null to be truthy
+
+- Expected: 
+true
+
++ Received: 
+null
+
+ ❯ src/a2u/__tests__/integration.test.ts:376:60
+    374|       
+    375|       // Check that fallback was rendered
+    376|       expect(container.querySelector('.a2u-render-error')).toBeTruthy(…
+       |                                                            ^
+    377|     });
+    378| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/37]⎯
+
+ FAIL  src/a2u/__tests__/integration.test.ts > A2U Integration Tests > Error Handling > should continue rendering after non-critical errors
+AssertionError: expected null to be truthy
+
+- Expected: 
+true
+
++ Received: 
+null
+
+ ❯ src/a2u/__tests__/integration.test.ts:407:60
+    405|       
+    406|       // Check that fallback was rendered
+    407|       expect(container.querySelector('.a2u-render-error')).toBeTruthy(…
+       |                                                            ^
+    408|     });
+    409|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/37]⎯
+
+ FAIL  src/a2u/__tests__/registry.test.ts > Component Registry > should throw error for unregistered component type
+AssertionError: expected [Function] to throw an error
+ ❯ src/a2u/__tests__/registry.test.ts:275:8
+    273|     expect(() => {
+    274|       renderer.render(response, container);
+    275|     }).toThrow();
+       |        ^
+    276|   });
+    277| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/37]⎯
+
+ FAIL  src/a2u/__tests__/registry.test.ts > Component Registry > should allow unregistering a component
+AssertionError: expected [Function] to throw an error
+ ❯ src/a2u/__tests__/registry.test.ts:301:56
+    299| 
+    300|     // Should throw after unregistering
+    301|     expect(() => renderer.render(response, container)).toThrow();
+       |                                                        ^
+    302|   });
+    303| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/37]⎯
+
+ FAIL  src/a2u/__tests__/registry.test.ts > Component Registry > should check if component is registered
+TypeError: renderer.hasComponent is not a function
+ ❯ src/a2u/__tests__/registry.test.ts:305:21
+    303| 
+    304|   it('should check if component is registered', () => {
+    305|     expect(renderer.hasComponent('button')).toBe(true);
+       |                     ^
+    306|     expect(renderer.hasComponent('text')).toBe(true);
+    307|     expect(renderer.hasComponent('nonexistent')).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/37]⎯
+
+ FAIL  src/a2u/__tests__/registry.test.ts > Component Registry > should handle component with props validation in custom renderer
+AssertionError: expected [Function] to throw an error
+
+- Expected: 
+null
+
++ Received: 
+undefined
+
+ ❯ src/a2u/__tests__/registry.test.ts:365:63
+    363| 
+    364|     expect(() => renderer.render(validResponse, container)).not.toThro…
+    365|     expect(() => renderer.render(invalidResponse, container)).toThrow(…
+       |                                                               ^
+    366|   });
+    367| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/37]⎯
+
+ FAIL  src/a2u/__tests__/renderer.test.ts > A2URenderer > render > should render fallback on error
+ZodError: [
+  {
+    "code": "too_small",
+    "minimum": 0,
+    "type": "number",
+    "inclusive": false,
+    "exact": false,
+    "message": "Number must be greater than 0",
+    "path": [
+      "maxDepth"
+    ]
+  }
+]
+ ❯ Object.get error [as error] ../../node_modules/.pnpm/zod@3.25.76/node_modules/zod/v3/types.js:39:31
+ ❯ ZodObject.parse ../../node_modules/.pnpm/zod@3.25.76/node_modules/zod/v3/types.js:114:22
+ ❯ new A2URenderer src/a2u/renderer.ts:97:40
+     95|    */
+     96|   constructor(config: Partial<RendererConfig> = {}) {
+     97|     this.config = rendererConfigSchema.parse(config);
+       |                                        ^
+     98|     this.componentRegistry = new Map();
+     99| 
+ ❯ src/a2u/__tests__/renderer.test.ts:182:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/37]⎯
+
+ FAIL  src/ag-ui/__tests__/dispose.test.ts > Event Bus Disposal > should clean up all subscriptions on dispose
+EventBusDisposedError: Cannot emit: EventBus has been disposed
+ ❯ AGUIEventBus.emit src/ag-ui/event-bus.ts:176:13
+    174|   emit<T extends EventType>(type: T, payload: EventPayloadMap[T]): voi…
+    175|     if (this.disposed) {
+    176|       throw new EventBusDisposedError('emit');
+       |             ^
+    177|     }
+    178| 
+ ❯ src/ag-ui/__tests__/dispose.test.ts:20:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/37]⎯
+
+ FAIL  src/ag-ui/__tests__/dispose.test.ts > Event Bus Disposal > should allow resubscribing after dispose
+EventBusDisposedError: Cannot on: EventBus has been disposed
+ ❯ AGUIEventBus.on src/ag-ui/event-bus.ts:104:13
+    102|   on<T extends EventType>(type: T, handler: EventHandler<T>): () => vo…
+    103|     if (this.disposed) {
+    104|       throw new EventBusDisposedError('on');
+       |             ^
+    105|     }
+    106| 
+ ❯ src/ag-ui/__tests__/dispose.test.ts:56:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/37]⎯
+
+ FAIL  src/ag-ui/__tests__/dispose.test.ts > Event Bus Disposal > should handle multiple dispose calls safely
+EventBusDisposedError: Cannot emit: EventBus has been disposed
+ ❯ AGUIEventBus.emit src/ag-ui/event-bus.ts:176:13
+    174|   emit<T extends EventType>(type: T, payload: EventPayloadMap[T]): voi…
+    175|     if (this.disposed) {
+    176|       throw new EventBusDisposedError('emit');
+       |             ^
+    177|     }
+    178| 
+ ❯ src/ag-ui/__tests__/dispose.test.ts:84:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/37]⎯
+
+ FAIL  src/ag-ui/__tests__/dispose.test.ts > Event Bus Disposal > should dispose subscriptions for all event types
+EventBusDisposedError: Cannot emit: EventBus has been disposed
+ ❯ AGUIEventBus.emit src/ag-ui/event-bus.ts:176:13
+    174|   emit<T extends EventType>(type: T, payload: EventPayloadMap[T]): voi…
+    175|     if (this.disposed) {
+    176|       throw new EventBusDisposedError('emit');
+       |             ^
+    177|     }
+    178| 
+ ❯ src/ag-ui/__tests__/dispose.test.ts:114:16
+ ❯ src/ag-ui/__tests__/dispose.test.ts:113:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/37]⎯
+
+ FAIL  src/ag-ui/__tests__/dispose.test.ts > Event Bus Disposal > should not affect other event bus instances
+EventBusDisposedError: Cannot emit: EventBus has been disposed
+ ❯ AGUIEventBus.emit src/ag-ui/event-bus.ts:176:13
+    174|   emit<T extends EventType>(type: T, payload: EventPayloadMap[T]): voi…
+    175|     if (this.disposed) {
+    176|       throw new EventBusDisposedError('emit');
+       |             ^
+    177|     }
+    178| 
+ ❯ src/ag-ui/__tests__/dispose.test.ts:147:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/37]⎯
+
+ FAIL  src/ag-ui/__tests__/dispose.test.ts > Event Bus Disposal > should clear subscription count after dispose
+AssertionError: expected [Function] to not throw an error but 'EventBusDisposedError: Cannot emit: E…' was thrown
+
+- Expected: 
+undefined
+
++ Received: 
+"EventBusDisposedError: Cannot emit: EventBus has been disposed"
+
+ ❯ src/ag-ui/__tests__/dispose.test.ts:174:44
+    172| 
+    173|     // Should not throw even with no handlers
+    174|     expect(() => eventBus.emit(event)).not.toThrow();
+       |                                            ^
+    175|   });
+    176| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/37]⎯
+
+ FAIL  src/ag-ui/__tests__/dispose.test.ts > Event Bus Disposal > should prevent memory leaks by cleaning up handlers
+EventBusDisposedError: Cannot emit: EventBus has been disposed
+ ❯ AGUIEventBus.emit src/ag-ui/event-bus.ts:176:13
+    174|   emit<T extends EventType>(type: T, payload: EventPayloadMap[T]): voi…
+    175|     if (this.disposed) {
+    176|       throw new EventBusDisposedError('emit');
+       |             ^
+    177|     }
+    178| 
+ ❯ src/ag-ui/__tests__/dispose.test.ts:199:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Event Flow > should handle complete generation lifecycle
+AssertionError: expected [] to have a length of 4 but got +0
+
+- Expected
++ Received
+
+- 4
++ 0
+
+ ❯ src/ag-ui/__tests__/integration.test.ts:41:22
+     39|       });
+     40| 
+     41|       expect(events).toHaveLength(4);
+       |                      ^
+     42|       expect(events[0].type).toBe('generation:start');
+     43|       expect(events[1].type).toBe('tool:call');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Event Flow > should handle error during generation
+AssertionError: expected [] to have a length of 2 but got +0
+
+- Expected
++ Received
+
+- 2
++ 0
+
+ ❯ src/ag-ui/__tests__/integration.test.ts:67:22
+     65|       });
+     66| 
+     67|       expect(events).toHaveLength(2);
+       |                      ^
+     68|       expect(events[0].type).toBe('generation:start');
+     69|       expect(events[1].type).toBe('error');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Multiple Subscribers > should notify all subscribers in order
+AssertionError: expected [] to deeply equal [ 1, 2, 3 ]
+
+- Expected
++ Received
+
+- [
+-   1,
+-   2,
+-   3,
+- ]
++ []
+
+ ❯ src/ag-ui/__tests__/integration.test.ts:88:25
+     86|       });
+     87| 
+     88|       expect(callOrder).toEqual([1, 2, 3]);
+       |                         ^
+     89|     });
+     90| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Multiple Subscribers > should handle subscriber errors gracefully
+AssertionError: expected "vi.fn()" to be called at least once
+ ❯ src/ag-ui/__tests__/integration.test.ts:113:24
+    111| 
+    112|       // All handlers should be called
+    113|       expect(handler1).toHaveBeenCalled();
+       |                        ^
+    114|       expect(handler2).toHaveBeenCalled();
+    115|       expect(handler3).toHaveBeenCalled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Event Filtering > should only notify subscribers for specific event types
+AssertionError: expected "vi.fn()" to be called once, but got 0 times
+ ❯ src/ag-ui/__tests__/integration.test.ts:136:28
+    134|       });
+    135| 
+    136|       expect(startHandler).toHaveBeenCalledOnce();
+       |                            ^
+    137|       expect(endHandler).not.toHaveBeenCalled();
+    138|       expect(errorHandler).not.toHaveBeenCalled();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Unsubscribe During Emission > should handle unsubscribe during event emission
+AssertionError: expected "vi.fn()" to be called once, but got 0 times
+ ❯ src/ag-ui/__tests__/integration.test.ts:162:24
+    160| 
+    161|       // Both should be called in first emission
+    162|       expect(handler1).toHaveBeenCalledOnce();
+       |                        ^
+    163|       expect(handler2).toHaveBeenCalledOnce();
+    164| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Performance > should handle many events efficiently
+AssertionError: expected "vi.fn()" to be called 1000 times, but got 0 times
+ ❯ src/ag-ui/__tests__/integration.test.ts:203:23
+    201|       const duration = endTime - startTime;
+    202| 
+    203|       expect(handler).toHaveBeenCalledTimes(1000);
+       |                       ^
+    204|       expect(duration).toBeLessThan(100); // Should complete in less t…
+    205|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Performance > should handle many subscribers efficiently
+AssertionError: expected "vi.fn()" to be called once, but got 0 times
+ ❯ src/ag-ui/__tests__/integration.test.ts:231:25
+    229|       // All handlers should be called
+    230|       handlers.forEach((handler) => {
+    231|         expect(handler).toHaveBeenCalledOnce();
+       |                         ^
+    232|       });
+    233| 
+ ❯ src/ag-ui/__tests__/integration.test.ts:230:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/37]⎯
+
+ FAIL  src/ag-ui/__tests__/integration.test.ts > AG-UI Event Bus Integration > Event Payload Integrity > should not mutate event payload
+AssertionError: expected 123 to be 999 // Object.is equality
+
+- Expected
++ Received
+
+- 999
++ 123
+
+ ❯ src/ag-ui/__tests__/integration.test.ts:257:37
+    255|       // Original should be mutated (no deep clone by default)
+    256|       // This documents current behavior
+    257|       expect(originalPayload.value).toBe(999);
+       |                                     ^
+    258|     });
+    259|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should validate generation:start event
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:15:38
+     13|       };
+     14| 
+     15|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+     16|       expect(result.success).toBe(true);
+     17|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should validate generation:end event
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:29:38
+     27|       };
+     28| 
+     29|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+     30|       expect(result.success).toBe(true);
+     31|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should validate tool:call event
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:43:38
+     41|       };
+     42| 
+     43|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+     44|       expect(result.success).toBe(true);
+     45|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should validate tool:result event
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:57:38
+     55|       };
+     56| 
+     57|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+     58|       expect(result.success).toBe(true);
+     59|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should validate ui:action event
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:71:38
+     69|       };
+     70| 
+     71|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+     72|       expect(result.success).toBe(true);
+     73|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should validate error event
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:85:38
+     83|       };
+     84| 
+     85|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+     86|       expect(result.success).toBe(true);
+     87|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should reject invalid event type
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:96:38
+     94|       };
+     95| 
+     96|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+     97|       expect(result.success).toBe(false);
+     98|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should reject event without timestamp
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:106:38
+    104|       };
+    105| 
+    106|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+    107|       expect(result.success).toBe(false);
+    108|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/37]⎯
+
+ FAIL  src/ag-ui/__tests__/types.test.ts > AG-UI Event Types > Event Schema Validation > should reject event without payload
+TypeError: Cannot read properties of undefined (reading 'safeParse')
+ ❯ src/ag-ui/__tests__/types.test.ts:116:38
+    114|       };
+    115| 
+    116|       const result = agUIEventSchema.safeParse(event);
+       |                                      ^
+    117|       expect(result.success).toBe(false);
+    118|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/37]⎯
+
+ FAIL  src/a2u/components/__tests__/button.test.ts > Button Component Renderer > should call onAction when button is clicked
+AssertionError: expected "vi.fn()" to be called with arguments: [ { type: 'call_tool', …(1) }, …(1) ]
+
+Received: 
+
+  1st vi.fn() call:
+
+@@ -6,24 +6,7 @@
+        },
+        "tool": "testTool",
+      },
+      "type": "call_tool",
+    },
+-   {
+-     "actions": [
+-       {
+-         "params": {
+-           "args": {
+-             "foo": "bar",
+-           },
+-           "tool": "testTool",
+-         },
+-         "type": "call_tool",
+-       },
+-     ],
+-     "id": "test-button",
+-     "props": {
+-       "label": "Test",
+-     },
+-     "type": "button",
+-   },
++   "test-button",
+  ]
+
+
+Number of calls: 1
+
+ ❯ src/a2u/components/__tests__/button.test.ts:195:26
+    193|     element.click();
+    194| 
+    195|     expect(onActionMock).toHaveBeenCalledWith(mockAction, component);
+       |                          ^
+    196|   });
+    197| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/37]⎯
+
+ FAIL  src/a2u/components/__tests__/button.test.ts > Button Component Renderer > should handle multiple actions
+AssertionError: expected 1st "vi.fn()" call to have been called with [ { type: 'call_tool', …(1) }, …(1) ]
+
+- Expected
++ Received
+
+@@ -4,28 +4,7 @@
+        "args": {},
+        "tool": "tool1",
+      },
+      "type": "call_tool",
+    },
+-   {
+-     "actions": [
+-       {
+-         "params": {
+-           "args": {},
+-           "tool": "tool1",
+-         },
+-         "type": "call_tool",
+-       },
+-       {
+-         "params": {
+-           "url": "/test",
+-         },
+-         "type": "navigate",
+-       },
+-     ],
+-     "id": "test-button",
+-     "props": {
+-       "label": "Test",
+-     },
+-     "type": "button",
+-   },
++   "test-button",
+  ]
+
+ ❯ src/a2u/components/__tests__/button.test.ts:260:26
+    258| 
+    259|     expect(onActionMock).toHaveBeenCalledTimes(2);
+    260|     expect(onActionMock).toHaveBeenNthCalledWith(1, actions[0], compon…
+       |                          ^
+    261|     expect(onActionMock).toHaveBeenNthCalledWith(2, actions[1], compon…
+    262|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/37]⎯
+
+
+ Test Files  7 failed | 4 passed (11)
+      Tests  37 failed | 102 passed (139)
+   Start at  16:36:43
+   Duration  1.15s (transform 578ms, setup 0ms, import 994ms, tests 267ms, environment 7.12s)
+

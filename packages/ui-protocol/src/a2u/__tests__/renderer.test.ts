@@ -178,13 +178,24 @@ describe('A2URenderer', () => {
     });
 
     it('should render fallback on error', () => {
-      // Force an error by setting max depth to 0
-      const strictRenderer = new A2URenderer({ maxDepth: 0 });
+      // Force an error by setting max depth to 1 and nesting beyond that
+      const strictRenderer = new A2URenderer({ maxDepth: 1 });
 
       const response: A2UResponse = {
         version: '1.0',
         type: 'ui',
-        ui: { type: 'card' },
+        ui: {
+          type: 'card',
+          id: 'outer-card',
+          props: { title: 'Outer' },
+          children: [
+            {
+              type: 'card',
+              id: 'inner-card',
+              props: { title: 'Inner' },
+            },
+          ],
+        },
       };
 
       strictRenderer.render(response, container);

@@ -18,7 +18,8 @@ export class AgentOrchestrator {
   async execute(
     messages: Message[],
     tools: Record<string, Tool>,
-    generateFn: (messages: Message[]) => Promise<GenerateResult>
+    generateFn: (messages: Message[]) => Promise<GenerateResult>,
+    onToolCall?: (toolName: string, args: unknown, result: unknown) => void
   ): Promise<AgentResult> {
     let currentMessages = [...messages];
     let totalUsage = {
@@ -56,7 +57,7 @@ export class AgentOrchestrator {
       // Execute tool calls
       const toolResults = await this.executeToolCalls(result.toolCalls, tools);
       
-      // Track tool calls
+      // Track tool calls and emit events
       for (let i = 0; i < result.toolCalls.length; i++) {
         const call = result.toolCalls[i];
         const toolResult = toolResults[i];
@@ -67,6 +68,11 @@ export class AgentOrchestrator {
             input: call.arguments,
             output: toolResult.data,
           });
+          
+          // Notify callback if provided
+          if (onToolCall) {
+            onToolCall(call.name, call.arguments, toolResult.data);
+          }
         }
       }
       

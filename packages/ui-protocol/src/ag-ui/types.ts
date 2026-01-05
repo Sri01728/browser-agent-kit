@@ -174,6 +174,22 @@ export interface EventPayloadMap {
 // =============================================================================
 
 /**
+ * AG-UI Event schema for validation.
+ */
+export const agUIEventSchema = z.object({
+  type: eventTypeSchema,
+  timestamp: z.number(),
+  payload: z.union([
+    generationStartPayloadSchema,
+    generationEndPayloadSchema,
+    toolCallPayloadSchema,
+    toolResultPayloadSchema,
+    uiActionPayloadSchema,
+    errorPayloadSchema,
+  ]),
+});
+
+/**
  * AG-UI Event - typed event with payload.
  */
 export interface AGUIEvent<T extends EventType = EventType> {

@@ -14,9 +14,10 @@ import { buttonPropsSchema } from '../types';
  */
 const CSS_CLASSES = {
   button: 'a2u-button',
-  buttonPrimary: 'a2u-button--primary',
-  buttonSecondary: 'a2u-button--secondary',
-  buttonDanger: 'a2u-button--danger',
+  buttonPrimary: 'a2u-button-primary',
+  buttonSecondary: 'a2u-button-secondary',
+  buttonDanger: 'a2u-button-danger',
+  buttonSuccess: 'a2u-button-success',
   buttonDisabled: 'a2u-button--disabled',
 };
 
@@ -46,11 +47,25 @@ export function renderButton(component: A2UComponent, context: RenderContext): H
 
   const button = document.createElement('button');
   button.className = CSS_CLASSES.button;
-  button.textContent = props.label;
+  
+  // Set button content (with optional icon)
+  if (props.icon) {
+    button.textContent = `${props.icon} ${props.label}`;
+  } else {
+    button.textContent = props.label;
+  }
 
   if (component.id) {
     button.id = component.id;
     button.setAttribute('data-component-id', component.id);
+  }
+
+  // Set button type
+  button.type = props.buttonType || 'button';
+
+  // Set aria-label for accessibility
+  if (props.ariaLabel) {
+    button.setAttribute('aria-label', props.ariaLabel);
   }
 
   // Apply variant styling
@@ -64,6 +79,19 @@ export function renderButton(component: A2UComponent, context: RenderContext): H
     case 'danger':
       button.classList.add(CSS_CLASSES.buttonDanger);
       break;
+    case 'success':
+      button.classList.add(CSS_CLASSES.buttonSuccess);
+      break;
+  }
+
+  // Apply custom className
+  if (props.className) {
+    button.classList.add(props.className);
+  }
+
+  // Apply custom styles
+  if (props.style) {
+    Object.assign(button.style, props.style);
   }
 
   // Handle disabled state
