@@ -28,7 +28,11 @@ export const transformersConfigSchema = z.object({
   
   /** Progress callback for model loading */
   onProgress: z.function()
-    .args(z.object({ loaded: z.number(), total: z.number() }))
+    .args(z.object({ 
+      status: z.string(),
+      file: z.string(),
+      progress: z.number(),
+    }))
     .returns(z.void())
     .optional(),
 });

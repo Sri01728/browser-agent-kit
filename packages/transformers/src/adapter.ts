@@ -105,21 +105,8 @@ export class TransformersAdapter implements LLMAdapter {
     
     try {
       // Dynamic import to avoid bundling transformers.js in all builds
-      const { pipeline, env } = await import('@xenova/transformers');
-      
-      // Configure transformers.js environment
-      env.allowLocalModels = true;
-      env.allowRemoteModels = true;
-      
-      // Configure backend preference
-      if (this.config.useWebGPU && 'gpu' in navigator) {
-        try {
-          // Try to use WebGPU if available
-          env.backends.onnx.wasm.proxy = false;
-        } catch {
-          // WebGPU not available, fallback to WASM
-        }
-      }
+      const transformers = await import('@xenova/transformers');
+      const { pipeline } = transformers;
       
       // Validate model type
       const modelId = this.config.modelPath;
@@ -133,8 +120,17 @@ export class TransformersAdapter implements LLMAdapter {
       
       // Create pipeline with progress callback
       const progressCallback = this.config.onProgress
-        ? (progress: { loaded: number; total: number }) => {
-            this.config.onProgress?.(progress);
+        ? (progress: any) => {
+            // Map transformers.js progress format to our format
+            const status = progress.status || 'downloading';
+            const file = progress.file || progress.name || 'model';
+            const progressPercent = progress.progress || 0;
+            
+            this.config.onProgress?.({
+              status,
+              file,
+              progress: progressPercent,
+            });
           }
         : undefined;
       
