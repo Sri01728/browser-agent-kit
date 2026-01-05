@@ -10,6 +10,22 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./hooks/use-agent": {
+      "types": "./dist/hooks/use-agent.d.ts",
+      "import": "./dist/hooks/use-agent.js"
+    },
+    "./hooks/use-agent-stream": {
+      "types": "./dist/hooks/use-agent-stream.d.ts",
+      "import": "./dist/hooks/use-agent-stream.js"
+    },
+    "./components/AgentChat": {
+      "types": "./dist/components/AgentChat.d.ts",
+      "import": "./dist/components/AgentChat.js"
+    },
+    "./components/A2UComponent": {
+      "types": "./dist/components/A2UComponent.d.ts",
+      "import": "./dist/components/A2UComponent.js"
     }
   },
   "scripts": {
@@ -17,7 +33,9 @@
     "build": "tsup",
     "test": "vitest",
     "lint": "eslint src",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "size": "size-limit",
+    "size:why": "size-limit --why"
   },
   "dependencies": {
     "@mediapipe/tasks-genai": "^0.10.14",

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "@web-agent/react (full bundle)",
+    "path": "dist/index.js",
+    "limit": "31 KB",
+    "ignore": ["@web-agent/core", "@web-agent/ui-protocol", "react", "react-dom"]
+  },
+  {
+    "name": "useAgent hook",
+    "path": "dist/hooks/use-agent.js",
+    "limit": "10 KB",
+    "ignore": ["@web-agent/core", "@web-agent/ui-protocol", "react", "react-dom"]
+  },
+  {
+    "name": "useAgentStream hook",
+    "path": "dist/hooks/use-agent-stream.js",
+    "limit": "10 KB",
+    "ignore": ["@web-agent/core", "@web-agent/ui-protocol", "react", "react-dom"]
+  },
+  {
+    "name": "AgentChat component",
+    "path": "dist/components/AgentChat.js",
+    "limit": "15 KB",
+    "ignore": ["@web-agent/core", "@web-agent/ui-protocol", "react", "react-dom"]
+  },
+  {
+    "name": "A2UComponent wrapper",
+    "path": "dist/components/A2UComponent.js",
+    "limit": "8 KB",
+    "ignore": ["@web-agent/core", "@web-agent/ui-protocol", "react", "react-dom"]
+  }
+]

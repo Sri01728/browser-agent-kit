@@ -170,6 +170,9 @@ export { useAgentStream } from './hooks/use-agent-stream';
 
 export { A2UComponent } from './components/A2UComponent';
 export { AgentChat } from './components/AgentChat';
+export { Modal } from './components/Modal';
+export { Tabs } from './components/Tabs';
+export { Dropdown } from './components/Dropdown';
 
 // =============================================================================
 // Utilities
@@ -224,4 +227,9 @@ export type {
   AGUIEvent,
   EventType,
 } from '@web-agent/ui-protocol';
+
+// Component prop types
+export type { ModalProps } from './components/Modal';
+export type { TabsProps, TabItem } from './components/Tabs';
+export type { DropdownProps, DropdownOption } from './components/Dropdown';
 

@@ -32,12 +32,18 @@ import { z } from 'zod';
  * - `submit` - Submit form data (params contains form data)
  * - `update` - Update component state (params contains updates)
  * - `call_tool` - Invoke agent tool (params.tool, params.args)
+ * - `modal_close` - Close modal dialog
+ * - `tab_change` - Change active tab (params.tabId)
+ * - `dropdown_select` - Select dropdown option (params.value, params.label)
  */
 export const actionTypeSchema = z.enum([
   'navigate',
   'submit',
   'update',
   'call_tool',
+  'modal_close',
+  'tab_change',
+  'dropdown_select',
 ]);
 
 export type ActionType = z.infer<typeof actionTypeSchema>;
@@ -70,6 +76,9 @@ export const builtInComponentTypeSchema = z.enum([
   'text',
   'image',
   'form',
+  'modal',
+  'tabs',
+  'dropdown',
 ]);
 
 export type BuiltInComponentType = z.infer<typeof builtInComponentTypeSchema>;
@@ -231,6 +240,64 @@ export const formPropsSchema = z.object({
 });
 
 export type FormProps = z.infer<typeof formPropsSchema>;
+
+/** Modal component props */
+export const modalPropsSchema = z.object({
+  title: z.string().optional(),
+  open: z.boolean().optional().default(false),
+  size: z.enum(['small', 'medium', 'large', 'fullscreen']).optional().default('medium'),
+  closeOnOverlayClick: z.boolean().optional().default(true),
+  closeOnEscape: z.boolean().optional().default(true),
+  hideCloseButton: z.boolean().optional().default(false),
+  className: z.string().optional(),
+  style: z.record(z.string()).optional(),
+});
+
+export type ModalProps = z.infer<typeof modalPropsSchema>;
+
+/** Tab item schema */
+export const tabItemSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  icon: z.string().optional(),
+  disabled: z.boolean().optional().default(false),
+});
+
+export type TabItem = z.infer<typeof tabItemSchema>;
+
+/** Tabs component props */
+export const tabsPropsSchema = z.object({
+  tabs: z.array(tabItemSchema),
+  activeTab: z.string().optional(),
+  orientation: z.enum(['horizontal', 'vertical']).optional().default('horizontal'),
+  className: z.string().optional(),
+  style: z.record(z.string()).optional(),
+});
+
+export type TabsProps = z.infer<typeof tabsPropsSchema>;
+
+/** Dropdown option schema */
+export const dropdownOptionSchema = z.object({
+  value: z.string(),
+  label: z.string(),
+  icon: z.string().optional(),
+  disabled: z.boolean().optional().default(false),
+  divider: z.boolean().optional().default(false),
+});
+
+export type DropdownOption = z.infer<typeof dropdownOptionSchema>;
+
+/** Dropdown component props */
+export const dropdownPropsSchema = z.object({
+  label: z.string().optional(),
+  placeholder: z.string().optional(),
+  options: z.array(dropdownOptionSchema),
+  value: z.string().optional(),
+  className: z.string().optional(),
+  style: z.record(z.string()).optional(),
+});
+
+export type DropdownProps = z.infer<typeof dropdownPropsSchema>;
 
 // =============================================================================
 // Renderer Configuration

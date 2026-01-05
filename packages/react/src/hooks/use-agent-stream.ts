@@ -237,6 +237,11 @@ export function useAgentStream(config: UseAgentStreamConfig): UseAgentStreamRetu
   const clearMessages = useCallback(() => {
     setMessages([]);
     setPartialResponse('');
+    pendingTextRef.current = '';
+    if (rafIdRef.current !== null) {
+      cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = null;
+    }
   }, []);
 
   return {

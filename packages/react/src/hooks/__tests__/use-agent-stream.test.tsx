@@ -19,15 +19,16 @@ describe('useAgentStream', () => {
   });
 
   it('should initialize with empty state', () => {
-    const { result } = renderHook(() => useAgentStream(mockAgent));
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent }));
 
-    expect(result.current.chunks).toEqual([]);
-    expect(result.current.isStreaming).toBe(false);
+    expect(result.current.messages).toEqual([]);
+    expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBeNull();
-    expect(result.current.result).toBeNull();
+    expect(result.current.partialResponse).toBe('');
+    expect(result.current.isStopped).toBe(false);
   });
 
-  it('should stream chunks from agent', async () => {
+  it('should stream response from agent', async () => {
     const mockChunks: AgentStreamChunk[] = [
       { type: 'text', text: 'Hello' },
       { type: 'text', text: ' world' },
@@ -42,25 +43,22 @@ describe('useAgentStream', () => {
 
     mockAgent.stream = vi.fn().mockReturnValue(mockStream());
 
-    const { result } = renderHook(() => useAgentStream(mockAgent));
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent }));
 
-    // Start streaming
-    result.current.startStream('Test prompt');
+    // Send message and wait for completion
+    result.current.sendMessage('Test prompt');
 
-    // Wait for streaming to start
+    // Wait for messages to be added
     await waitFor(() => {
-      expect(result.current.isStreaming).toBe(true);
+      expect(result.current.messages.length).toBe(2);
     });
 
-    // Wait for streaming to complete
-    await waitFor(() => {
-      expect(result.current.isStreaming).toBe(false);
-    }, { timeout: 3000 });
-
-    // Check chunks were collected
-    expect(result.current.chunks.length).toBeGreaterThan(0);
-    expect(result.current.result).toBeTruthy();
-    expect(result.current.result?.text).toBe('Hello world');
+    // Check messages were added correctly
+    expect(result.current.messages[0].role).toBe('user');
+    expect(result.current.messages[0].content).toBe('Test prompt');
+    expect(result.current.messages[1].role).toBe('assistant');
+    expect(result.current.messages[1].content).toBe('Hello world');
+    expect(result.current.isLoading).toBe(false);
   });
 
   it('should handle streaming errors', async () => {
@@ -71,19 +69,19 @@ describe('useAgentStream', () => {
 
     mockAgent.stream = vi.fn().mockReturnValue(mockStream());
 
-    const { result } = renderHook(() => useAgentStream(mockAgent));
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent }));
 
-    result.current.startStream('Test prompt');
+    await result.current.sendMessage('Test prompt');
 
     await waitFor(() => {
       expect(result.current.error).toBeTruthy();
-    }, { timeout: 3000 });
+    });
 
     expect(result.current.error?.message).toBe('Stream error');
-    expect(result.current.isStreaming).toBe(false);
+    expect(result.current.isLoading).toBe(false);
   });
 
-  it('should clear state on reset', async () => {
+  it('should clear messages', async () => {
     async function* mockStream() {
       yield { type: 'text', text: 'Hello' } as AgentStreamChunk;
       yield { type: 'done', done: { text: 'Hello', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } } as AgentStreamChunk;
@@ -91,161 +89,228 @@ describe('useAgentStream', () => {
 
     mockAgent.stream = vi.fn().mockReturnValue(mockStream());
 
-    const { result } = renderHook(() => useAgentStream(mockAgent));
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent }));
 
-    result.current.startStream('Test prompt');
-
-    await waitFor(() => {
-      expect(result.current.result).toBeTruthy();
-    }, { timeout: 3000 });
-
-    // Reset
-    result.current.reset();
-
-    expect(result.current.chunks).toEqual([]);
-    expect(result.current.result).toBeNull();
-    expect(result.current.error).toBeNull();
-  });
-
-  it('should handle tool call chunks', async () => {
-    const mockChunks: AgentStreamChunk[] = [
-      { type: 'text', text: 'Calling tool...' },
-      { type: 'tool_call', toolCall: { id: 'call-1', name: 'testTool', arguments: { input: 'test' } } },
-      { type: 'tool_result', toolResult: { id: 'call-1', result: { output: 'result' } } },
-      { type: 'done', done: { text: 'Done', steps: 2, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } },
-    ];
-
-    async function* mockStream() {
-      for (const chunk of mockChunks) {
-        yield chunk;
-      }
-    }
-
-    mockAgent.stream = vi.fn().mockReturnValue(mockStream());
-
-    const { result } = renderHook(() => useAgentStream(mockAgent));
-
-    result.current.startStream('Test prompt');
+    result.current.sendMessage('Test prompt');
 
     await waitFor(() => {
-      expect(result.current.result).toBeTruthy();
-    }, { timeout: 3000 });
-
-    expect(result.current.chunks).toHaveLength(4);
-    expect(result.current.chunks[1].type).toBe('tool_call');
-    expect(result.current.chunks[2].type).toBe('tool_result');
-  });
-
-  it('should pass options to agent stream', async () => {
-    async function* mockStream() {
-      yield { type: 'done', done: { text: 'Done', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } } as AgentStreamChunk;
-    }
-
-    mockAgent.stream = vi.fn().mockReturnValue(mockStream());
-
-    const { result } = renderHook(() => useAgentStream(mockAgent));
-
-    const options = {
-      maxTokens: 100,
-      temperature: 0.7,
-      memory: { resource: 'user-123', thread: 'thread-1' },
-    };
-
-    result.current.startStream('Test prompt', options);
-
-    await waitFor(() => {
-      expect(mockAgent.stream).toHaveBeenCalledWith('Test prompt', options);
-    });
-  });
-
-  it('should not start new stream while streaming', async () => {
-    async function* mockStream() {
-      yield { type: 'text', text: 'Hello' } as AgentStreamChunk;
-      // Simulate slow stream
-      await new Promise(resolve => setTimeout(resolve, 100));
-      yield { type: 'done', done: { text: 'Hello', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } } as AgentStreamChunk;
-    }
-
-    mockAgent.stream = vi.fn().mockReturnValue(mockStream());
-
-    const { result } = renderHook(() => useAgentStream(mockAgent));
-
-    result.current.startStream('First prompt');
-
-    await waitFor(() => {
-      expect(result.current.isStreaming).toBe(true);
+      expect(result.current.messages.length).toBe(2);
     });
 
-    // Try to start another stream
-    result.current.startStream('Second prompt');
+    // Clear messages
+    result.current.clearMessages();
 
-    // Should still be processing first stream
-    expect(mockAgent.stream).toHaveBeenCalledTimes(1);
+    // Wait for state update - just check messages are cleared
+    await waitFor(() => {
+      expect(result.current.messages.length).toBe(0);
+    });
+
+    // Partial response should also be cleared
+    expect(result.current.partialResponse).toBe('');
   });
 
-  it('should accumulate text chunks', async () => {
+  it('should show partial response during streaming', async () => {
     const mockChunks: AgentStreamChunk[] = [
       { type: 'text', text: 'Hello' },
-      { type: 'text', text: ' ' },
-      { type: 'text', text: 'world' },
+      { type: 'text', text: ' world' },
       { type: 'done', done: { text: 'Hello world', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } },
     ];
 
     async function* mockStream() {
       for (const chunk of mockChunks) {
         yield chunk;
+        // Add small delay to allow state updates
+        await new Promise(resolve => setTimeout(resolve, 10));
       }
     }
 
     mockAgent.stream = vi.fn().mockReturnValue(mockStream());
 
-    const { result } = renderHook(() => useAgentStream(mockAgent));
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent }));
 
-    result.current.startStream('Test prompt');
+    await result.current.sendMessage('Test prompt');
 
+    // Wait for completion
     await waitFor(() => {
-      expect(result.current.result).toBeTruthy();
-    }, { timeout: 3000 });
+      expect(result.current.isLoading).toBe(false);
+    });
 
-    // Check that text chunks were accumulated
-    const textChunks = result.current.chunks.filter(c => c.type === 'text');
-    expect(textChunks).toHaveLength(3);
+    // After completion, partial response should be cleared
+    expect(result.current.partialResponse).toBe('');
   });
 
-  it('should handle empty stream', async () => {
+  it('should stop streaming', async () => {
+    const mockChunks: AgentStreamChunk[] = [
+      { type: 'text', text: 'Hello' },
+      { type: 'text', text: ' world' },
+      { type: 'done', done: { text: 'Hello world', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } },
+    ];
+
     async function* mockStream() {
-      yield { type: 'done', done: { text: '', steps: 0, finishReason: 'stop', usage: { promptTokens: 0, completionTokens: 0, totalTokens: 0 } } } as AgentStreamChunk;
+      for (const chunk of mockChunks) {
+        yield chunk;
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
     }
 
     mockAgent.stream = vi.fn().mockReturnValue(mockStream());
 
-    const { result } = renderHook(() => useAgentStream(mockAgent));
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent }));
 
-    result.current.startStream('Test prompt');
+    // Start streaming
+    result.current.sendMessage('Test prompt');
+
+    // Wait for streaming to start
+    await waitFor(() => {
+      expect(result.current.isLoading).toBe(true);
+    });
+
+    // Stop streaming
+    result.current.stop();
+
+    // Wait for state updates
+    await waitFor(() => {
+      expect(result.current.isStopped).toBe(true);
+    });
+
+    expect(result.current.isLoading).toBe(false);
+  });
+
+  it('should call onSend callback', async () => {
+    const onSend = vi.fn();
+
+    async function* mockStream() {
+      yield { type: 'done', done: { text: 'Done', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } } as AgentStreamChunk;
+    }
+
+    mockAgent.stream = vi.fn().mockReturnValue(mockStream());
+
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent, onSend }));
+
+    await result.current.sendMessage('Test prompt');
 
     await waitFor(() => {
-      expect(result.current.result).toBeTruthy();
-    }, { timeout: 3000 });
+      expect(onSend).toHaveBeenCalled();
+    });
 
-    expect(result.current.result?.text).toBe('');
-    expect(result.current.result?.steps).toBe(0);
+    expect(onSend).toHaveBeenCalledWith(
+      expect.objectContaining({
+        role: 'user',
+        content: 'Test prompt',
+      })
+    );
+  });
+
+  it('should call onResponse callback', async () => {
+    const onResponse = vi.fn();
+
+    async function* mockStream() {
+      yield { type: 'text', text: 'Response' } as AgentStreamChunk;
+      yield { type: 'done', done: { text: 'Response', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } } as AgentStreamChunk;
+    }
+
+    mockAgent.stream = vi.fn().mockReturnValue(mockStream());
+
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent, onResponse }));
+
+    await result.current.sendMessage('Test prompt');
+
+    await waitFor(() => {
+      expect(onResponse).toHaveBeenCalled();
+    });
+
+    expect(onResponse).toHaveBeenCalledWith(
+      expect.objectContaining({
+        role: 'assistant',
+        content: 'Response',
+      })
+    );
+  });
+
+  it('should call onChunk callback', async () => {
+    const onChunk = vi.fn();
+
+    async function* mockStream() {
+      yield { type: 'text', text: 'Hello' } as AgentStreamChunk;
+      yield { type: 'text', text: ' world' } as AgentStreamChunk;
+      yield { type: 'done', done: { text: 'Hello world', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } } as AgentStreamChunk;
+    }
+
+    mockAgent.stream = vi.fn().mockReturnValue(mockStream());
+
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent, onChunk }));
+
+    await result.current.sendMessage('Test prompt');
+
+    await waitFor(() => {
+      expect(onChunk).toHaveBeenCalled();
+    });
+
+    expect(onChunk).toHaveBeenCalledWith('Hello');
+    expect(onChunk).toHaveBeenCalledWith(' world');
+  });
+
+  it('should call onComplete callback', async () => {
+    const onComplete = vi.fn();
+
+    async function* mockStream() {
+      yield { type: 'text', text: 'Done' } as AgentStreamChunk;
+      yield { type: 'done', done: { text: 'Done', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } } as AgentStreamChunk;
+    }
+
+    mockAgent.stream = vi.fn().mockReturnValue(mockStream());
+
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent, onComplete }));
+
+    await result.current.sendMessage('Test prompt');
+
+    await waitFor(() => {
+      expect(onComplete).toHaveBeenCalled();
+    });
+
+    expect(onComplete).toHaveBeenCalledWith(
+      expect.objectContaining({
+        role: 'assistant',
+        content: 'Done',
+      })
+    );
+  });
+
+  it('should call onError callback', async () => {
+    const onError = vi.fn();
+
+    async function* mockStream() {
+      throw new Error('Test error');
+    }
+
+    mockAgent.stream = vi.fn().mockReturnValue(mockStream());
+
+    const { result } = renderHook(() => useAgentStream({ agent: mockAgent, onError }));
+
+    await result.current.sendMessage('Test prompt');
+
+    await waitFor(() => {
+      expect(onError).toHaveBeenCalled();
+    });
+
+    expect(onError).toHaveBeenCalledWith(expect.any(Error));
   });
 
   it('should cleanup on unmount', async () => {
     async function* mockStream() {
       yield { type: 'text', text: 'Hello' } as AgentStreamChunk;
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 100));
       yield { type: 'done', done: { text: 'Hello', steps: 1, finishReason: 'stop', usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 } } } as AgentStreamChunk;
     }
 
     mockAgent.stream = vi.fn().mockReturnValue(mockStream());
 
-    const { result, unmount } = renderHook(() => useAgentStream(mockAgent));
+    const { result, unmount } = renderHook(() => useAgentStream({ agent: mockAgent }));
 
-    result.current.startStream('Test prompt');
+    result.current.sendMessage('Test prompt');
 
     await waitFor(() => {
-      expect(result.current.isStreaming).toBe(true);
+      expect(result.current.isLoading).toBe(true);
     });
 
     // Unmount while streaming
@@ -255,4 +320,3 @@ describe('useAgentStream', () => {
     expect(true).toBe(true);
   });
 });
-

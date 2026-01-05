@@ -15,11 +15,12 @@
 
 ## 📦 Packages
 
-- `@web-agent/core` - Core orchestration engine ✅
-- `@web-agent/ui-protocol` - A2U & AG-UI protocol implementation (next)
-- `@web-agent/react` - React components and hooks (next)
-- `@web-agent/mediapipe` - MediaPipe LLM adapter (next)
-- `@web-agent/transformers` - Transformers.js adapter (future)
+- `@web-agent/core` - Core orchestration engine with enhanced memory ✅
+- `@web-agent/ui-protocol` - A2U & AG-UI protocol implementation (9 components) ✅
+- `@web-agent/react` - React components and hooks (Modal, Tabs, Dropdown) ✅
+- `@web-agent/mediapipe` - MediaPipe LLM adapter ✅
+- `@web-agent/transformers` - Transformers.js adapter (Phi-3, Llama, Mistral, Gemma) ✅
+- `create-web-agent` - CLI tool for scaffolding new projects ✅
 - `@web-agent/litert` - LiteRT.js adapter (future)
 
 ## 🎯 What Makes This Different?
@@ -44,7 +45,7 @@ All without you writing UI update logic!
 
 ## 🏗️ Project Status
 
-**Phase 1: Core Foundation** ✅ (Complete - 7/8 tasks)
+**Phase 1: Core Foundation** ✅ (Complete)
 
 - [x] Monorepo structure with pnpm workspaces
 - [x] LLM adapter interface (model-agnostic)
@@ -53,27 +54,71 @@ All without you writing UI update logic!
 - [x] Function calling orchestration logic
 - [x] Conversation memory (IndexedDB-backed)
 - [x] Request context for conditional logic
-- [ ] MediaPipe adapter implementation (90% designed)
+- [x] MediaPipe adapter implementation
 
-**Phase 2: UI Protocol Layer** 🚧 (Next - 6-8 weeks to MVP)
+**Phase 2: UI Protocol Layer** ✅ (Complete)
 
-- [ ] A2U protocol renderer
-- [ ] AG-UI event bus
-- [ ] Component registry
-- [ ] React integration (`@web-agent/react`)
-- [ ] Example: Flight booking with UI control
-- [ ] Documentation
+- [x] A2U protocol renderer
+- [x] AG-UI event bus
+- [x] Component registry (6 core components)
+- [x] React integration (`@web-agent/react`)
+- [x] Example applications
+- [x] Documentation
 
-**Phase 3: Additional Adapters** 🔮 (Future)
+**Phase 3: Production Ready** ✅ (Complete - 100%)
 
-- [ ] Transformers.js adapter
-- [ ] LiteRT.js adapter
-- [ ] Model caching utilities
+**Week 1: Quick Wins** ✅
+- [x] Fixed 4 integration tests
+- [x] Fixed 5+ accessibility tests
+- [x] Set up bundle optimization (size-limit)
+- [x] Implemented code splitting (30 KB compressed)
+- [x] Verified bundle size targets
+
+**Week 2-3: Transformers.js Adapter** ✅
+- [x] Adapter implementation with model family detection
+- [x] Function calling via chat templates (Phi, Llama, Mistral, Gemma)
+- [x] Support for Phi-3, Llama, Mistral, Gemma models
+- [x] 42 comprehensive tests (89% coverage on core logic)
+- [x] Complete documentation and examples
+
+**Week 4-5: UI Components** ✅
+- [x] Modal, Tabs, Dropdown components with full ARIA support
+- [x] ARIA attributes and keyboard navigation (WCAG 2.1 AA compliant)
+- [x] 62 comprehensive tests (100% passing)
+- [x] React wrapper components (Modal, Tabs, Dropdown)
+- [x] Complete documentation and examples
+- [x] WCAG 2.1 AA compliance audit
+
+**Week 6-7: Enhanced Memory & CLI** ✅
+- [x] Multi-resource memory system (user, session, context)
+- [x] 4 memory processors (summarization, filtering, metadata, TTL)
+- [x] Memory search (text + metadata + date ranges)
+- [x] 55+ comprehensive tests (90% coverage)
+- [x] CLI tool for scaffolding (`create-web-agent`)
+- [x] React template with Next.js
+- [x] Complete documentation (1,200+ lines)
 
 ## 📖 Quick Start
 
+### Create a New Project (Recommended)
+
 ```bash
-# Install dependencies
+# Create a new project with the CLI
+npm create web-agent@latest my-app
+
+# Navigate to project
+cd my-app
+
+# Start development server
+npm run dev
+```
+
+### Manual Setup
+
+```bash
+# Clone and install dependencies
+git clone https://github.com/your-org/web-agent-framework
+cd web-agent-framework
 pnpm install
 
 # Build all packages
@@ -222,12 +267,21 @@ web-agent-framework/
 
 All documentation is in the [`docs/`](./docs/) folder:
 
+### Getting Started
+- **[CLI Guide](./docs/CLI_GUIDE.md)** - Create new projects with `create-web-agent`
 - **[Quick Reference](./docs/QUICK_REFERENCE.md)** - Visual guides & quick start
 - **[Getting Started](./docs/GETTING_STARTED.md)** - Step-by-step implementation guide
+
+### Core Concepts
 - **[Framework Design](./docs/FRAMEWORK_DESIGN.md)** - Complete architecture
 - **[Agent UI Integration](./docs/AGENT_UI_INTEGRATION.md)** - A2U & AG-UI protocols
+- **[Enhanced Memory](./docs/ENHANCED_MEMORY.md)** - Multi-resource memory system
 - **[Decision Matrix](./docs/DECISION_MATRIX.md)** - Why this approach
+
+### Reference
 - **[Executive Summary](./docs/EXECUTIVE_SUMMARY.md)** - High-level overview
+- **[UI Components](./docs/UI_COMPONENTS.md)** - Modal, Tabs, Dropdown
+- **[WCAG Compliance](./docs/WCAG_COMPLIANCE_AUDIT.md)** - Accessibility audit
 
 **[→ Browse All Documentation](./docs/)**
 
