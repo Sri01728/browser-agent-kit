@@ -1,12 +1,20 @@
 import { z } from 'zod';
-import type { ToolDefinition } from '@web-agent/core';
+import { createTool } from '@web-agent/core';
 
-export const weatherTool: ToolDefinition = {
-  name: 'get_weather',
+export const weatherTool = createTool({
+  id: 'get_weather',
   description: 'Get the current weather for a location',
-  parameters: z.object({
+  inputSchema: z.object({
     location: z.string().describe('The city and state, e.g. San Francisco, CA'),
     unit: z.enum(['celsius', 'fahrenheit']).optional().default('fahrenheit'),
+  }),
+  outputSchema: z.object({
+    location: z.string(),
+    temperature: z.number(),
+    unit: z.string(),
+    conditions: z.string(),
+    humidity: z.number(),
+    wind_speed: z.number(),
   }),
   execute: async ({ location, unit }) => {
     // Mock weather data
@@ -14,21 +22,33 @@ export const weatherTool: ToolDefinition = {
     return {
       location,
       temperature: temp,
-      unit,
+      unit: unit || 'fahrenheit',
       conditions: 'Sunny',
       humidity: 65,
       wind_speed: 10,
     };
   },
-};
+});
 
-export const flightSearchTool: ToolDefinition = {
-  name: 'search_flights',
+export const flightSearchTool = createTool({
+  id: 'search_flights',
   description: 'Search for flights between two cities',
-  parameters: z.object({
+  inputSchema: z.object({
     from: z.string().describe('Departure city'),
     to: z.string().describe('Destination city'),
     date: z.string().optional().describe('Departure date (YYYY-MM-DD)'),
+  }),
+  outputSchema: z.object({
+    flights: z.array(z.object({
+      id: z.string(),
+      airline: z.string(),
+      from: z.string(),
+      to: z.string(),
+      departure: z.string(),
+      arrival: z.string(),
+      price: z.number(),
+      duration: z.string(),
+    })),
   }),
   execute: async ({ from, to, date }) => {
     // Mock flight data
@@ -67,5 +87,5 @@ export const flightSearchTool: ToolDefinition = {
       ],
     };
   },
-};
+});
 

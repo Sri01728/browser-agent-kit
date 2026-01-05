@@ -46,6 +46,9 @@ export interface TabItem {
   
   /** Whether tab is disabled */
   disabled?: boolean;
+  
+  /** Tab panel content */
+  content?: React.ReactNode;
 }
 
 export interface TabsProps {
@@ -90,11 +93,12 @@ export const Tabs: React.FC<TabsProps> = ({
   children,
   onTabChange,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const contentRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const rendererRef = useRef<A2URenderer | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!tabsRef.current) return;
 
     // Initialize renderer if not already done
     if (!rendererRef.current) {
@@ -104,13 +108,12 @@ export const Tabs: React.FC<TabsProps> = ({
       });
     }
 
-    // Convert React children to A2U components
-    // For simplicity, we'll create one child per tab
-    const childComponents: A2UComponent[] = tabs.map((tab, index) => ({
+    // Create placeholder children for A2U (actual content rendered separately)
+    const childComponents: A2UComponent[] = tabs.map((tab) => ({
       type: 'text',
       props: {
-        content: `Tab panel ${index + 1}`,
-        allowHtml: true,
+        content: '', // Empty placeholder
+        allowHtml: false,
       },
     }));
 
@@ -140,7 +143,7 @@ export const Tabs: React.FC<TabsProps> = ({
       ui: component,
     };
 
-    rendererRef.current.render(a2uResponse, containerRef.current, {
+    rendererRef.current.render(a2uResponse, tabsRef.current, {
       onAction: (action: any, componentId?: string) => {
         if (action.type === 'tab_change' && action.params?.tabId) {
           onTabChange?.(action.params.tabId as string);
@@ -150,13 +153,28 @@ export const Tabs: React.FC<TabsProps> = ({
 
     // Cleanup
     return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = '';
+      if (tabsRef.current) {
+        tabsRef.current.innerHTML = '';
       }
     };
-  }, [tabs, activeTab, orientation, className, style, children, onTabChange]);
+  }, [tabs, activeTab, orientation, className, style, onTabChange]);
 
-  return <div ref={containerRef} />;
+  return (
+    <div>
+      <div ref={tabsRef} />
+      {tabs.map((tab) => (
+        <div
+          key={tab.id}
+          ref={(el) => {
+            if (el) contentRefs.current.set(tab.id, el);
+          }}
+          style={{ display: activeTab === tab.id ? 'block' : 'none' }}
+        >
+          {tab.content}
+        </div>
+      ))}
+    </div>
+  );
 };
 
 Tabs.displayName = 'Tabs';

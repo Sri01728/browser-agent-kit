@@ -18,10 +18,17 @@ function App() {
     name: 'Demo Agent',
     instructions: 'You are a helpful travel assistant. Help users find flights and check weather.',
     model: {
+      isReady: () => true,
+      initialize: async () => {},
       generate: async (messages) => {
         // Mock response with A2U UI
         return {
           text: "I found some flights for you! Here's what I found:",
+          usage: {
+            promptTokens: 50,
+            completionTokens: 100,
+            totalTokens: 150,
+          },
           ui: {
             type: 'ui' as const,
             version: '1.0',
@@ -147,11 +154,11 @@ function App() {
                       <Dropdown
                         label={`Model: ${selectedModel}`}
                         options={[
-                          { id: 'mock', label: 'Mock Agent (Demo)' },
-                          { id: 'phi3', label: 'Phi-3 (Browser)' },
-                          { id: 'llama', label: 'Llama 3 (Browser)' },
+                          { value: 'mock', label: 'Mock Agent (Demo)' },
+                          { value: 'phi3', label: 'Phi-3 (Browser)' },
+                          { value: 'llama', label: 'Llama 3 (Browser)' },
                         ]}
-                        onSelect={(id) => setSelectedModel(id)}
+                        onSelect={(value) => setSelectedModel(value)}
                       />
 
                       <button
