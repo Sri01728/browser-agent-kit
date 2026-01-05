@@ -104,9 +104,9 @@ export class TransformersAdapter implements LLMAdapter {
     }
     
     try {
-      // Dynamic import to avoid bundling transformers.js in all builds
-      const transformers = await import('@xenova/transformers');
-      const { pipeline } = transformers;
+      // Import transformers.js
+      // Note: @xenova/transformers is the npm package name
+      const { pipeline } = await import('@xenova/transformers');
       
       // Validate model type
       const modelId = this.config.modelPath;
@@ -118,30 +118,30 @@ export class TransformersAdapter implements LLMAdapter {
         );
       }
       
-      // Create pipeline with progress callback
-      const progressCallback = this.config.onProgress
-        ? (progress: any) => {
-            // Map transformers.js progress format to our format
-            const status = progress.status || 'downloading';
-            const file = progress.file || progress.name || 'model';
-            const progressPercent = progress.progress || 0;
-            
-            this.config.onProgress?.({
-              status,
-              file,
-              progress: progressPercent,
-            });
-          }
-        : undefined;
+      // Report progress
+      if (this.config.onProgress) {
+        this.config.onProgress({
+          status: 'loading',
+          file: modelId,
+          progress: 0,
+        });
+      }
       
       // Create text-generation pipeline
+      // The pipeline will automatically download and cache the model
       this.pipeline = await pipeline(
         'text-generation',
-        modelId,
-        {
-          progress_callback: progressCallback,
-        }
+        modelId
       );
+      
+      // Report completion
+      if (this.config.onProgress) {
+        this.config.onProgress({
+          status: 'ready',
+          file: modelId,
+          progress: 100,
+        });
+      }
       
       // Extract tokenizer and model from pipeline
       this.tokenizer = this.pipeline.tokenizer;
